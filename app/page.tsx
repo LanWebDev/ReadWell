@@ -1,5 +1,5 @@
 "use client";
-import Header from "@/components/Header";
+import Header from "@/components/ui/Header";
 import axios from "axios";
 import { useState } from "react";
 
@@ -31,7 +31,7 @@ export default function Home() {
 
   return (
     <main>
-      <Header data={data} fetchBooks={fetchBooks} />
+      <div className="pt-[12rem]">home</div>
     </main>
   );
 }
