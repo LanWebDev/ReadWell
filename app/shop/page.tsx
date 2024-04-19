@@ -1,7 +1,7 @@
 export default function Shop() {
   return (
-    <main>
-      <div>Shop</div>
-    </main>
+    <>
+      <div className="pt-[5rem]">Shop</div>
+    </>
   );
 }

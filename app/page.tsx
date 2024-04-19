@@ -30,8 +30,24 @@ export default function Home() {
   };
 
   return (
-    <main>
-      <div className="pt-[12rem]">home</div>
-    </main>
+    <>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[12rem] h-full">home</div>
+    </>
   );
 }
