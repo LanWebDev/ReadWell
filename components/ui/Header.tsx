@@ -11,6 +11,7 @@ import { HamburgerBtn } from "./HamburgerButton";
 import Logo from "@/assets/bookWell.png";
 import Cart from "./Cart";
 import Image from "next/image";
+import background from "@/assets/background.jpg";
 
 const Header = () => {
   const pathname = usePathname();
@@ -34,49 +35,66 @@ const Header = () => {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full z-50 border-b  bg-white/90  backdrop-blur-sm  ">
-        <div className="flex items-center  px-5 lg:px-7.5 xl:px-10 py-4">
-          <Link className="block  mr-4" href={"/"}>
-            <Image src={Logo} alt="bookWell logo" width={200} />
+      <div
+        className={`fixed left-0 right-0 mx-auto max-w-[100rem] z-50 border-b border-gray-200 lg:bg-white/90  lg:backdrop-blur-sm ${
+          openNavigation ? "bg-white" : "bg-white/90 backdrop-blur-sm "
+        } `}
+      >
+        <div className="flex items-center  px-5 lg:px-7.5 xl:px-10 py-4 ">
+          <Link className="block  mr-4 xl:mr-8 hover:opacity-90 " href={"/"}>
+            <Image
+              src={Logo}
+              alt="bookWell logo"
+              width={200}
+              className="sm:min-w-[12rem] "
+            />
           </Link>
           <Input
             type="text"
             placeholder="search books"
-            className="text-black w-[25rem] hidden sm:block"
+            className="text-black max-w-[30rem] hidden sm:block mx-auto border-gray-300 outline-none"
           />
           <nav
             className={`${
               openNavigation ? "flex" : "hidden"
-            } fixed top-[5rem] left-0 right-0 bottom-0 bg-gray-400  lg:static lg:flex lg:mx-auto lg:bg-transparent`}
+            } fixed top-[5rem] left-0 right-0 bottom-0 bg-white/30 backdrop-blur-sm lg:static lg:flex lg:ml-auto  lg:bg-transparent `}
           >
-            <div className="relative z-2 flex flex-col items-center justify-center m-auto lg:flex-row">
+            <div className=" relative z-2 flex flex-col items-center justify-center m-auto lg:flex-row">
               {navigation.map((item) => (
-                <Button
+                <Link
+                  href={item.url}
                   key={item.id}
-                  variant={"link"}
                   onClick={handleClick}
-                  className={`relative hover:text-gray-300 ${
+                  className={`group relative text-4xl hover:text-gray-600 hover:transition:color 0.3 ease-out hover:transition-colors ${
                     item.onlyMobile ? "lg:hidden" : ""
-                  } px-6 py-6  md:py-8 lg:-mr-0.25 lg:text-xs lg:font-semibold ${
-                    item.url === pathname ? "z-2 lg:text-n-1" : "lg:text-n-1/50"
-                  } lg:leading-5 lg:hover:text-n-1 xl:px-12`}
+                  } mx-6 lg:my-6 my-6 lg:text-base lg:font-semibold ${
+                    item.url === pathname
+                      ? "z-2 lg:text-gray-900 "
+                      : "lg:text-gray-900"
+                  } `}
                 >
-                  <Link href={item.url}>{item.title}</Link>
-                </Button>
+                  {item.title}
+                  <span
+                    className={`absolute bottom-0 left-0 block h-0.5 w-0 bg-black transition-all duration-300 ease-in-out group-hover:w-full ${
+                      item.url === pathname ? "w-full" : "w-0"
+                    }`}
+                  ></span>
+                </Link>
               ))}
             </div>
           </nav>
-
-          <Button className="hidden lg:flex py-3  bg-gradient-to-r from-cyan-500 to-blue-500 border-opacity-75 hover:opacity-70 mr-4">
-            <Link className=" " href={"/signin"}>
+          <Link href={"/signin"}>
+            <Button className="hidden lg:flex scale-110 bg-gradient-to-r from-cyan-500 to-blue-500 border-opacity-75 hover:opacity-70 mr-10 justify-end">
               Sign in
-            </Link>
-          </Button>
-          <HamburgerBtn
-            className={"mx-3 lg:hidden px-3"}
-            toggleNavigation={toggleNavigation}
-          />
-          <Cart />
+            </Button>
+          </Link>
+          <div className="flex  ml-auto">
+            <HamburgerBtn
+              className={"mx-3 lg:hidden px-3 flex justify-end"}
+              toggleNavigation={toggleNavigation}
+            />
+            <Cart />
+          </div>
         </div>
       </div>
     </>

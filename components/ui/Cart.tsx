@@ -20,7 +20,7 @@ const Cart = () => {
           className={`${
             cartItems > 0 &&
             "absolute scale-75 -translate-y-2 translate-x-3 bg-blue-400 rounded-full border p-0 m-0 w-[1.7rem] min-w-min text-white"
-          }`}
+          } `}
         >
           {cartItems > 0 ? cartItems : ""}
         </p>

@@ -31,23 +31,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
-      <div className="pt-[12rem] h-full">home</div>
+      <div className="pt-[8rem]">home</div>
     </>
   );
 }
