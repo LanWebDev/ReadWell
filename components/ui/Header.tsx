@@ -84,13 +84,13 @@ const Header = () => {
             </div>
           </nav>
           <Link href={"/signin"}>
-            <Button className="hidden lg:flex scale-110 bg-gradient-to-r from-cyan-500 to-blue-500 border-opacity-75 hover:opacity-70 mr-10 justify-end">
+            <Button className="hidden lg:flex scale-110 bg-gradient-to-r from-cyan-500 to-blue-500 border-opacity-75 hover:opacity-70 mr-10 ">
               Sign in
             </Button>
           </Link>
           <div className="flex  ml-auto">
             <HamburgerBtn
-              className={"mx-3 lg:hidden px-3 flex justify-end"}
+              className={"mx-3 lg:hidden px-3 "}
               toggleNavigation={toggleNavigation}
             />
             <Cart />

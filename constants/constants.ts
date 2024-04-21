@@ -1,3 +1,7 @@
+import facebookIcon from "@/assets/icons/facebook.png";
+import twitterIcon from "@/assets/icons/twitter.png";
+import instagramIcon from "@/assets/icons/instagram.png";
+
 export const navigation = [
   {
     id: 0,
@@ -14,5 +18,23 @@ export const navigation = [
     title: "Sing in",
     url: "/signin",
     onlyMobile: true,
+  },
+];
+
+export const footerIcons = [
+  {
+    id: 0,
+    src: facebookIcon,
+    alt: "facebook icon",
+  },
+  {
+    id: 1,
+    src: twitterIcon,
+    alt: "twitter icon",
+  },
+  {
+    id: 2,
+    src: instagramIcon,
+    alt: "instagram icon",
   },
 ];
