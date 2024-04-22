@@ -11,7 +11,6 @@ import { HamburgerBtn } from "./HamburgerButton";
 import Logo from "@/assets/bookWell.png";
 import Cart from "./Cart";
 import Image from "next/image";
-import background from "@/assets/background.jpg";
 
 const Header = () => {
   const pathname = usePathname();
@@ -56,8 +55,8 @@ const Header = () => {
           />
           <nav
             className={`${
-              openNavigation ? "flex" : "hidden"
-            } fixed top-[5rem] left-0 right-0 bottom-0 bg-white/30 backdrop-blur-sm lg:static lg:flex lg:ml-auto  lg:bg-transparent `}
+              openNavigation ? "flex backdrop-blur-sm" : "hidden"
+            } fixed top-[5rem] left-0 right-0 bottom-0 bg-white/80  lg:static lg:flex lg:ml-auto  lg:bg-transparent `}
           >
             <div className=" relative z-2 flex flex-col items-center justify-center m-auto lg:flex-row">
               {navigation.map((item) => (
@@ -83,8 +82,8 @@ const Header = () => {
               ))}
             </div>
           </nav>
-          <Link href={"/signin"}>
-            <Button className="hidden lg:flex scale-110 bg-gradient-to-r from-cyan-500 to-blue-500 border-opacity-75 hover:opacity-70 mr-10 ">
+          <Link href={"/auth/signin"}>
+            <Button className="hidden lg:flex scale-110 bg-gradient-to-r from-cyan-500 to-blue-500 border-opacity-75 hover:opacity-70 mr-8 ml-5">
               Sign in
             </Button>
           </Link>

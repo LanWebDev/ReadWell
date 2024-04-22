@@ -6,7 +6,7 @@ import { Button } from "./button";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-300 p-10 flex justify-center items-center flex-col ">
+    <footer className="bg-gray-300 p-10 flex justify-center items-center flex-col  ">
       <Image src={logo} alt="logo" height={70} />
       <p className="m-4">©2024 BookWell. All Rights reserved</p>
       <div className="flex-row">

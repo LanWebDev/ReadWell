@@ -12,7 +12,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} max-w-[100rem] mx-auto`}>
+      <body className={`${inter.className} max-w-[100rem] mx-auto `}>
         <Header />
         <main>{children}</main>
         <Footer />

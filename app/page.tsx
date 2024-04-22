@@ -1,12 +1,11 @@
-"use client";
 import Header from "@/components/ui/Header";
 import axios from "axios";
 import { useState } from "react";
 
-// export const metadata = {
-//   title: "BookWell",
-//   description: "The only book store you need.",
-// };
+export const metadata = {
+  title: "BookWell",
+  description: "The only book store you need.",
+};
 
 export default function Home() {
   const [data, setData] = useState([]);
