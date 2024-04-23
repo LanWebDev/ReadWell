@@ -8,7 +8,7 @@ import Link from "next/link";
 import { Button } from "./button";
 import { useState } from "react";
 import { HamburgerBtn } from "./HamburgerButton";
-import Logo from "@/assets/bookWell.png";
+import Logo from "@/assets/ReadWell.png";
 import Cart from "./Cart";
 import Image from "next/image";
 
@@ -43,7 +43,7 @@ const Header = () => {
           <Link className="block  mr-4 xl:mr-8 hover:opacity-90 " href={"/"}>
             <Image
               src={Logo}
-              alt="bookWell logo"
+              alt="ReadWell logo"
               width={200}
               className="sm:min-w-[12rem] "
             />
