@@ -15,7 +15,6 @@ export default function RootLayout({
       <body className={`${inter.className} max-w-[100rem] mx-auto `}>
         <Header />
         <main>{children}</main>
-        <Footer />
       </body>
     </html>
   );

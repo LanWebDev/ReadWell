@@ -11,6 +11,7 @@ import { Button } from "../ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { LoginSchema } from "@/schemas";
+import { useSearchParams } from "next/navigation";
 
 import {
   Form,
@@ -25,6 +26,12 @@ import { FormSuccess } from "../form-success";
 import { login } from "@/actions/login";
 
 const LoginForm = () => {
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email already in use with different provider!"
+      : "";
+
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
@@ -44,19 +51,16 @@ const LoginForm = () => {
 
     startTransition(() => {
       login(values).then((data) => {
-        if (data && data.error) {
-          setError(data.error);
-        }
-        if (data && data.success) {
-          setSuccess(data.success);
-        }
+        setError(data?.error);
+        //TODO : Add when we do 2fa
+        // setSuccess(data?.success);
       });
     });
   };
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <div className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+        <div className="space-y-2">
           <FormField
             control={form.control}
             name="email"
@@ -94,7 +98,7 @@ const LoginForm = () => {
             )}
           />
         </div>
-        <FormError message={error} />
+        <FormError message={error || urlError} />
         <FormSuccess message={success} />
         <Button
           type="submit"

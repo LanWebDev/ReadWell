@@ -52,8 +52,8 @@ const RegisterForm = () => {
   };
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <div className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+        <div className="space-y-2">
           <FormField
             control={form.control}
             name="name"

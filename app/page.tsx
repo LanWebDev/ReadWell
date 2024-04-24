@@ -1,4 +1,4 @@
-import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
 import axios from "axios";
 import { useState } from "react";
 
@@ -31,6 +31,8 @@ export default function Home() {
   return (
     <>
       <div className="pt-[8rem]">home</div>
+      <button type="submit">clkc me</button>
+      <Footer />
     </>
   );
 }
