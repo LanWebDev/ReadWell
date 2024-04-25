@@ -30,8 +30,4 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
       password: hashedPassword,
     },
   });
-
-  // TODO: Send verification token email
-
-  return { success: "User created!" };
 };

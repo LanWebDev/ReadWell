@@ -13,12 +13,6 @@ export const navigation = [
     title: "Shop",
     url: "/shop",
   },
-  {
-    id: 2,
-    title: "Sing in",
-    url: "/signin",
-    onlyMobile: true,
-  },
 ];
 
 export const footerIcons = [

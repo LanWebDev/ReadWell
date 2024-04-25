@@ -52,8 +52,6 @@ const LoginForm = () => {
     startTransition(() => {
       login(values).then((data) => {
         setError(data?.error);
-        //TODO : Add when we do 2fa
-        // setSuccess(data?.success);
       });
     });
   };
@@ -107,9 +105,6 @@ const LoginForm = () => {
         >
           Login
         </Button>
-        <Link href="#" className="ml-auto inline-block text-sm underline">
-          Forgot your password?
-        </Link>
       </form>
     </Form>
   );

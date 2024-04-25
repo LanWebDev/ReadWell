@@ -11,8 +11,14 @@ import { HamburgerBtn } from "./HamburgerButton";
 import Logo from "@/assets/ReadWell.png";
 import Cart from "./Cart";
 import Image from "next/image";
+import { UserButton } from "../auth/UserButton";
+
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import NavigationLink from "./NavigationLink";
 
 const Header = () => {
+  const user = useCurrentUser();
+
   const pathname = usePathname();
   const [openNavigation, setOpenNavigation] = useState(false);
 
@@ -64,9 +70,7 @@ const Header = () => {
                   href={item.url}
                   key={item.id}
                   onClick={handleClick}
-                  className={`group relative text-4xl hover:text-gray-600 hover:transition:color 0.3 ease-out hover:transition-colors ${
-                    item.onlyMobile ? "lg:hidden" : ""
-                  } mx-6 lg:my-6 my-6 lg:text-base lg:font-semibold ${
+                  className={`group relative text-4xl hover:text-gray-600 hover:transition:color 0.3 ease-out hover:transition-colors mx-6 lg:my-6 my-6 lg:text-base lg:font-semibold ${
                     item.url === pathname
                       ? "z-2 lg:text-gray-900 "
                       : "lg:text-gray-900"
@@ -80,14 +84,34 @@ const Header = () => {
                   ></span>
                 </Link>
               ))}
+              {user ? (
+                <NavigationLink
+                  title="Profile"
+                  url="/profile"
+                  pathname={pathname}
+                  handleClick={handleClick}
+                />
+              ) : (
+                <NavigationLink
+                  title="Sign in"
+                  url="/auth/signin"
+                  pathname={pathname}
+                  handleClick={handleClick}
+                />
+              )}
             </div>
           </nav>
-          <Link href={"/auth/signin"}>
-            <Button className="hidden lg:flex scale-110 bg-gradient-to-r from-cyan-500 to-blue-500 border-opacity-75 hover:opacity-70 mr-8 ml-5">
-              Sign in
-            </Button>
-          </Link>
+
           <div className="flex  ml-auto">
+            {user ? (
+              <UserButton />
+            ) : (
+              <Link href={"/auth/signin"}>
+                <Button className="hidden lg:flex scale-110 bg-gradient-to-r from-cyan-500 to-blue-500 border-opacity-75 hover:opacity-70 mr-8 ml-5">
+                  Sign in
+                </Button>
+              </Link>
+            )}
             <HamburgerBtn
               className={"mx-3 lg:hidden px-3 "}
               toggleNavigation={toggleNavigation}
