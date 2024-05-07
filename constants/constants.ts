@@ -32,3 +32,5 @@ export const footerIcons = [
     alt: "instagram icon",
   },
 ];
+
+export const price = 14.99;
