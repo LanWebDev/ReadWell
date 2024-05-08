@@ -3,14 +3,22 @@ import { useState } from "react";
 interface HamburgerBtnProps {
   toggleNavigation: () => void;
   className: string;
+  openNavigation: boolean;
 }
 
 export function HamburgerBtn({
   toggleNavigation,
   className,
+  openNavigation,
 }: HamburgerBtnProps) {
   const [isOpen, setIsOpen] = useState(false);
   const genericHamburgerLine = `h-1 w-8 my-[0.2rem]  rounded-full bg-black transition ease transform duration-300`;
+
+  console.log(openNavigation);
+
+  if (openNavigation === false && isOpen === true) {
+    setIsOpen(false);
+  }
   return (
     <button
       className={`${className} flex flex-col h-12 w-12 justify-center items-center group`}

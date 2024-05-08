@@ -15,6 +15,7 @@ import { UserButton } from "../auth/UserButton";
 
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import NavigationLink from "./NavigationLink";
+import SearchInput from "./SearchInput";
 
 const Header = () => {
   const user = useCurrentUser();
@@ -54,11 +55,7 @@ const Header = () => {
               className="sm:min-w-[12rem] "
             />
           </Link>
-          <Input
-            type="text"
-            placeholder="search books"
-            className="text-black max-w-[30rem] hidden sm:block mx-auto border-gray-300 outline-none"
-          />
+          <SearchInput />
           <nav
             className={`${
               openNavigation ? "flex backdrop-blur-sm" : "hidden"
@@ -115,6 +112,7 @@ const Header = () => {
             <HamburgerBtn
               className={"mx-3 lg:hidden px-3 "}
               toggleNavigation={toggleNavigation}
+              openNavigation={openNavigation}
             />
             <Cart />
           </div>

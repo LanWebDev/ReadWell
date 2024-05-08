@@ -3,11 +3,14 @@ import axios from "axios";
 
 const useBooks = () => {
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [searchedBooks, setSearchedBooks] = useState([]);
 
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
 
   useEffect(() => {
+    setLoading(true);
+
     const fetchData = async () => {
       await axios
         .get(
@@ -18,6 +21,7 @@ const useBooks = () => {
           setSearchedBooks(data);
         })
         .catch((err) => console.error(err));
+      setLoading(false);
     };
     fetchData();
   }, [apiKey]);
@@ -35,6 +39,7 @@ const useBooks = () => {
   };
 
   return {
+    loading,
     page,
     nextPageHandler,
     prevPageHandler,
