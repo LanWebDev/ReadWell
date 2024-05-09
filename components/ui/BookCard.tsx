@@ -9,10 +9,11 @@ interface BookCardProps {
 }
 
 const BookCard = ({ book }: BookCardProps) => {
-  console.log(book);
+  console.log("inside: ", book);
   return (
     <>
       {book.map((item: any, i) => {
+        if (!item.volumeInfo.imageLinks) return;
         return (
           <div className="m-4 max-w-max max-md:flex max-md:gap-3" key={i}>
             <Link href={""}>
@@ -33,9 +34,13 @@ const BookCard = ({ book }: BookCardProps) => {
 
             <div className="flex flex-col pt-2 justify-center relative">
               <h3 className="font-bold text-lg truncate md:w-[170px] sm:w-[130px] max-sm:max-w-[200px]">
-                <Link href={""}>{item.volumeInfo.title}</Link>
+                <Link href={""}>
+                  {item.volumeInfo.title ? item.volumeInfo.title : "N/A"}
+                </Link>
               </h3>
-              <p className="text-sm">{item.volumeInfo.authors[0]}</p>
+              <p className="text-sm truncate md:w-[170px] sm:w-[130px] max-sm:max-w-[200px]">
+                {item.volumeInfo.authors ? item.volumeInfo.authors[0] : "N/A"}
+              </p>
 
               <p className="font-bold text-base pt-2">€{price}</p>
               <Button

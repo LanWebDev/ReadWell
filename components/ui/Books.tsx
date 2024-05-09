@@ -7,7 +7,7 @@ import Loading from "./Loading";
 
 const Books = () => {
   const { searchedBooks, loading } = useBooks();
-
+  console.log("books: ", searchedBooks);
   return (
     <div className="flex flex-col w-full">
       {loading ? (

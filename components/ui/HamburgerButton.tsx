@@ -14,8 +14,6 @@ export function HamburgerBtn({
   const [isOpen, setIsOpen] = useState(false);
   const genericHamburgerLine = `h-1 w-8 my-[0.2rem]  rounded-full bg-black transition ease transform duration-300`;
 
-  console.log(openNavigation);
-
   if (openNavigation === false && isOpen === true) {
     setIsOpen(false);
   }
