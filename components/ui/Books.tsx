@@ -5,9 +5,13 @@ import BookPagination from "./BookPagination";
 import useBooks from "@/hooks/useBooks";
 import Loading from "./Loading";
 
-const Books = () => {
-  const { searchedBooks: books, loading, error } = useBooks();
-  console.log("loading", loading);
+interface BooksProps {
+  searchedBooks: any;
+  loading: boolean;
+  error: boolean;
+}
+
+const Books = ({ searchedBooks: books, loading, error }: BooksProps) => {
   console.log("books: ", books);
   return (
     <div className="flex flex-col w-full">
@@ -19,15 +23,16 @@ const Books = () => {
       ) : (
         ""
       )}
+
       {loading ||
         (error && (
-          <div className="flex flex-col justify-center items-center align-center w-full h-full bg-slate-100">
+          <div className="flex flex-col justify-center items-center align-center w-full h-[50rem] bg-slate-100 ">
             <p>No books found. Try searching for something else!</p>
           </div>
         ))}
       <div className="bg-slate-100 w-full h-full grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 ">
         {books.map((book: any) => {
-          // if (!book.volumeInfo.imageLinks) return;
+          if (!book.volumeInfo.imageLinks) return;
           return (
             <BookCard
               key={book.id}

@@ -2,7 +2,6 @@
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 import { usePathname } from "next/navigation";
 
-import { Input } from "@/components/ui/input";
 import { navigation } from "@/constants/constants";
 import Link from "next/link";
 import { Button } from "./button";
@@ -15,7 +14,6 @@ import { UserButton } from "../auth/UserButton";
 
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import NavigationLink from "./NavigationLink";
-import SearchInput from "./SearchInput";
 
 const Header = () => {
   const user = useCurrentUser();
@@ -55,7 +53,7 @@ const Header = () => {
               className="sm:min-w-[12rem] "
             />
           </Link>
-          <SearchInput />
+
           <nav
             className={`${
               openNavigation ? "flex backdrop-blur-sm" : "hidden"

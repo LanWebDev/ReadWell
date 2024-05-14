@@ -1,11 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Input } from "./input";
-import useBooks from "@/hooks/useBooks";
 
-const SearchInput = () => {
-  const { setSearch, search } = useBooks();
+interface SearchInputProps {
+  setSearch: (value: string) => void;
+  search: string;
+}
 
+const SearchInput = ({ setSearch, search }: SearchInputProps) => {
   function handleSubmit(event: any) {
     if (event.keyCode === 13) {
       console.log(event.target.value);
@@ -16,7 +18,7 @@ const SearchInput = () => {
     <Input
       type="text"
       placeholder="search books"
-      className="text-black max-w-[30rem] hidden sm:block mx-auto border-gray-300 outline-none"
+      className="text-black  sm:max-w-[35rem] lg:max-w-[50rem] mx-auto border-gray-300 outline-none"
       value={search}
       onChange={(e) => setSearch(e.target.value)}
       onKeyDown={(event) => {

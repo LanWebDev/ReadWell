@@ -13,7 +13,7 @@ const BookCard = (props: any) => {
         <Link href={""}>
           {props.thumbnail ? (
             <Image
-              className="shadow-lg p-2 bg-white rounded-sm max-sm:w-[8rem] max-sm:h-[184px] sm:h-[250px] sm:w-[170px]"
+              className="shadow-lg p-2 bg-white rounded-sm max-md:w-[8rem] max-md:h-[184px] md:h-[250px] md:w-[170px]"
               src={props.thumbnail}
               height={200}
               width={170}
@@ -27,7 +27,7 @@ const BookCard = (props: any) => {
         </Link>
 
         <div className="flex flex-col pt-2 justify-center relative">
-          <h3 className="font-bold text-lg truncate md:w-[170px] sm:w-[130px] max-sm:max-w-[170px]">
+          <h3 className="font-bold text-lg truncate md:w-[170px] sm:w-[130px] max-sm:w-[170px]">
             <Link href={""}>{props.title ? props.title : "N/A"}</Link>
           </h3>
           <p className="text-sm truncate md:w-[170px] sm:w-[130px] max-sm:max-w-[200px]">

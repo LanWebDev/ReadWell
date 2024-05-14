@@ -2,13 +2,33 @@
 import Books from "@/components/ui/Books";
 import Footer from "@/components/ui/Footer";
 import Categories from "@/components/ui/Categories";
+import SearchInput from "@/components/ui/SearchInput";
+import useBooks from "@/hooks/useBooks";
 
 export default function Shop() {
+  const {
+    searchedBooks,
+    loading,
+    error,
+    setSearch,
+    search,
+    setError,
+    category,
+    setSearchedBooks,
+  } = useBooks();
+
+  // if (search === "" || category === "") {
+  //   setSearchedBooks([]);
+  // }
+  console.log(searchedBooks);
   return (
     <>
-      <div className="pt-[12rem] flex justify-center gap-2 p-4 max-sm:p-0 max-sm:pt-[6.5rem]">
+      <div className="pt-[7rem] md:pt-[7.5rem]">
+        <SearchInput setSearch={setSearch} search={search} />
+      </div>
+      <div className=" flex justify-center gap-2 p-4 max-sm:p-0 max-sm:pt-[0.5rem]">
         <Categories />
-        <Books />
+        <Books searchedBooks={searchedBooks} loading={loading} error={error} />
       </div>
       <Footer />
     </>
