@@ -3,34 +3,47 @@ import React from "react";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import useBooks from "@/hooks/useBooks";
 
-const BookPagination = () => {
-  const { page, nextPageHandler, prevPageHandler } = useBooks();
+interface BookPaginationProps {
+  page: number;
+  nextPageHandler: () => void;
+  prevPageHandler: () => void;
+  error: boolean;
+}
 
+const BookPagination = ({
+  page,
+  prevPageHandler,
+  nextPageHandler,
+  error,
+}: BookPaginationProps) => {
   return (
-    <Pagination className="bg-full bg-slate-100 ">
-      <PaginationContent className="text-black/80">
-        <PaginationItem>
-          <PaginationPrevious href="#" />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">{page}</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext href="#" />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
+    <>
+      {error || (
+        <Pagination className="bg-full bg-slate-100 ">
+          <PaginationContent className="text-black/80">
+            {page > 1 && (
+              <PaginationItem>
+                <PaginationPrevious href="#" onClick={prevPageHandler} />
+              </PaginationItem>
+            )}
+
+            <PaginationItem>
+              <PaginationLink href="#">{page}</PaginationLink>
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationNext href="#" onClick={nextPageHandler} />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      )}
+    </>
   );
 };
 

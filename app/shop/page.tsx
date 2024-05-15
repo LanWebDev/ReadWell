@@ -12,23 +12,33 @@ export default function Shop() {
     error,
     setSearch,
     search,
-    setError,
-    category,
-    setSearchedBooks,
+    page,
+    setPage,
+    nextPageHandler,
+    prevPageHandler,
+    setDisplayItems,
   } = useBooks();
 
-  // if (search === "" || category === "") {
-  //   setSearchedBooks([]);
-  // }
-  console.log(searchedBooks);
   return (
     <>
       <div className="pt-[7rem] md:pt-[7.5rem]">
-        <SearchInput setSearch={setSearch} search={search} />
+        <SearchInput
+          setSearch={setSearch}
+          search={search}
+          setPage={setPage}
+          setDisplayItems={setDisplayItems}
+        />
       </div>
       <div className=" flex justify-center gap-2 p-4 max-sm:p-0 max-sm:pt-[0.5rem]">
         <Categories />
-        <Books searchedBooks={searchedBooks} loading={loading} error={error} />
+        <Books
+          searchedBooks={searchedBooks}
+          loading={loading}
+          error={error}
+          page={page}
+          nextPageHandler={nextPageHandler}
+          prevPageHandler={prevPageHandler}
+        />
       </div>
       <Footer />
     </>
