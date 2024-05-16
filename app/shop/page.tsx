@@ -9,9 +9,10 @@ export default function Shop() {
   const {
     searchedBooks,
     loading,
+    setCategory,
+    category,
     error,
     setSearch,
-    search,
     page,
     setPage,
     nextPageHandler,
@@ -24,13 +25,12 @@ export default function Shop() {
       <div className="pt-[7rem] md:pt-[7.5rem]">
         <SearchInput
           setSearch={setSearch}
-          search={search}
           setPage={setPage}
           setDisplayItems={setDisplayItems}
         />
       </div>
       <div className=" flex justify-center gap-2 p-4 max-sm:p-0 max-sm:pt-[0.5rem]">
-        <Categories />
+        <Categories setCategory={setCategory} category={category} />
         <Books
           searchedBooks={searchedBooks}
           loading={loading}

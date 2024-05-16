@@ -1,19 +1,16 @@
 "use client";
-import React, { useRef } from "react";
+import React from "react";
 import { Input } from "./input";
 import debounce from "lodash/debounce";
-import { throttle } from "lodash";
 
 interface SearchInputProps {
   setSearch: (value: string) => void;
   setPage: (value: number) => void;
   setDisplayItems: (value: number) => void;
-  search: string;
 }
 
 const SearchInput = ({
   setSearch,
-  search,
   setPage,
   setDisplayItems,
 }: SearchInputProps) => {
@@ -27,7 +24,7 @@ const SearchInput = ({
     setSearch(e.target.value);
     setPage(1);
     setDisplayItems(0);
-  }, 1000);
+  }, 500);
   return (
     <Input
       type="text"

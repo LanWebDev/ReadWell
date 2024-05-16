@@ -1,20 +1,33 @@
 import React from "react";
-import { RadioGroup, Radio } from "@nextui-org/radio";
+import { categories } from "@/constants/constants";
 
-const Categories = () => {
+interface CategoriesProps {
+  setCategory: (value: string) => void;
+  category: string;
+}
+
+const Categories = ({ setCategory, category }: CategoriesProps) => {
   return (
-    <div className="bg-slate-100 h-[50rem] w-1/4 hidden lg:flex flex-col">
-      <h2 className="text-left ml-2 text-black font-semibold mt-2 ">
-        Categories
-      </h2>
-      <RadioGroup>
-        <Radio value="buenos-aires">Buenos Aires</Radio>
-        <Radio value="sydney">Sydney</Radio>
-        <Radio value="san-francisco">San Francisco</Radio>
-        <Radio value="london">London</Radio>
-        <Radio value="tokyo">Tokyo</Radio>
-      </RadioGroup>
-    </div>
+    <>
+      <div className="bg-slate-100 h-[50rem] w-1/4 hidden lg:flex flex-col">
+        <h2 className="text-left ml-2 text-black font-semibold mt-2 ">
+          Categories
+        </h2>
+        {categories.map((item) => (
+          <div key={item.value}>
+            <input
+              name="category"
+              type="radio"
+              value={item.value}
+              id={item.value}
+              checked={category === item.value}
+              onChange={(e) => setCategory(e.target.value)}
+            />{" "}
+            <label htmlFor={item.value}>{item.label}</label>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import { throttle } from "lodash";
-
 const useBooks = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -12,16 +10,10 @@ const useBooks = () => {
   const [search, setSearch] = useState("");
   const [totalItems, setTotalItems] = useState(0);
   const [displayItems, setDisplayItems] = useState(0);
+  const [category, setCategory] = useState("");
 
-  const category = search === "" ? "" : "";
-
+  console.log(category);
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
-
-  console.log(searchedBooks);
-  console.log(Math.ceil(totalItems / 20));
-  console.log("total item", totalItems);
-  console.log("display item", displayItems);
-  console.log(page);
 
   useEffect(() => {
     setLoading(true);
@@ -77,6 +69,9 @@ const useBooks = () => {
     if (search === "") {
       setSearchedBooks([]);
     }
+    if (search !== "") {
+      setCategory("");
+    }
   }, [search]);
 
   return {
@@ -88,8 +83,9 @@ const useBooks = () => {
     setDisplayItems,
     searchedBooks,
     setSearch,
-    search,
     error,
+    setCategory,
+    category,
   };
 };
 
