@@ -5,12 +5,10 @@ import { Button } from "./button";
 import Link from "next/link";
 
 const BookCard = (props: any) => {
-  const openBookHandler = () => {};
-
   return (
     <>
       <div className="m-4 max-w-max max-md:flex max-md:gap-3" key={props.id}>
-        <Link href={""}>
+        <Link href={`/shop/${props.id}`}>
           {props.thumbnail ? (
             <Image
               className="shadow-lg p-2 bg-white rounded-sm max-md:w-[8rem] max-md:h-[184px] md:h-[250px] md:w-[170px]"
@@ -39,7 +37,7 @@ const BookCard = (props: any) => {
             className="mt-4 w-[170px] max-md:w-[130px] font-bold text-white bg-rose-700 hover:bg-rose-800 hover:shadow-xl hover:scale-105 hover:transition-transform hover:text-white max-md:absolute bottom-1"
             variant={"outline"}
           >
-            BUY
+            ADD TO CART
           </Button>
         </div>
       </div>

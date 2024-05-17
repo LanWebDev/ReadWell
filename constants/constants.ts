@@ -63,7 +63,7 @@ export const categories: { value: string; label: string }[] = [
   { value: "psychology", label: "Psychology" },
   { value: "religion", label: "Religion" },
   { value: "romance", label: "Romance" },
-  { value: "science", label: "science" },
+  { value: "science", label: "Science" },
   { value: "self-help", label: "Self-Help" },
   { value: "sports", label: "Sports" },
   { value: "technology", label: "Technology" },

@@ -15,8 +15,8 @@ const SearchInput = ({
   setDisplayItems,
 }: SearchInputProps) => {
   function handleSubmit(event: any) {
-    if (event.keyCode === 13) {
-      console.log(event.target.value);
+    if (event.key === "Enter") {
+      setSearch(event.target.value);
     }
   }
 

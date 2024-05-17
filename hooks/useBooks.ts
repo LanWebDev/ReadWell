@@ -12,7 +12,6 @@ const useBooks = () => {
   const [displayItems, setDisplayItems] = useState(0);
   const [category, setCategory] = useState("");
 
-  console.log(category);
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
 
   useEffect(() => {
@@ -73,6 +72,12 @@ const useBooks = () => {
       setCategory("");
     }
   }, [search]);
+
+  useEffect(() => {
+    if (category !== "") {
+      setSearch("");
+    }
+  }, [category]);
 
   return {
     loading,
