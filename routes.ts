@@ -5,7 +5,7 @@
  */
 
 export const publicRoutes = ["/", "/shop"];
-
+console.log(publicRoutes);
 /**
  * An array of routes that are used for authentication
  * These routes will redirect logged in users to /settitngs
@@ -28,3 +28,7 @@ export const apiAuthPrefix = "/api/auth";
  */
 
 export const DEFUALT_LOGIN_REDIRECT = "/profile";
+
+export function addDynamicShopRouteById(id: string) {
+  publicRoutes.push(`/shop/${id}`);
+}

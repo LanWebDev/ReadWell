@@ -28,9 +28,6 @@ const useBook = () => {
     fetchData();
   }, [bookId]);
 
-  console.log(bookData);
-  console.log(bookId);
-  console.log(error);
   return {
     loading,
     bookData,

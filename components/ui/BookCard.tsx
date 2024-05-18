@@ -3,12 +3,17 @@ import Image from "next/image";
 import React from "react";
 import { Button } from "./button";
 import Link from "next/link";
+import { addDynamicShopRouteById } from "@/routes";
 
 const BookCard = (props: any) => {
   return (
     <>
       <div className="m-4 max-w-max max-md:flex max-md:gap-3" key={props.id}>
-        <Link href={`/shop/${props.id}`}>
+        <button onClick={() => addDynamicShopRouteById(props.id)}>click</button>
+        <Link
+          href={`/shop/${props.id}`}
+          onClick={() => addDynamicShopRouteById(props.id)}
+        >
           {props.thumbnail ? (
             <Image
               className="shadow-lg p-2 bg-white rounded-sm max-md:w-[8rem] max-md:h-[184px] md:h-[250px] md:w-[170px]"
@@ -26,7 +31,12 @@ const BookCard = (props: any) => {
 
         <div className="flex flex-col pt-2 justify-center relative">
           <h3 className="font-bold text-lg truncate md:w-[170px] sm:w-[130px] max-sm:w-[170px]">
-            <Link href={""}>{props.title ? props.title : "N/A"}</Link>
+            <Link
+              href={`/shop/${props.id}`}
+              onClick={() => addDynamicShopRouteById(props.id)}
+            >
+              {props.title ? props.title : "N/A"}
+            </Link>
           </h3>
           <p className="text-sm truncate md:w-[170px] sm:w-[130px] max-sm:max-w-[200px]">
             {props.author ? props.author[0] : "N/A"}
