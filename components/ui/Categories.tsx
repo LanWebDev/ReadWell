@@ -9,7 +9,7 @@ interface CategoriesProps {
 const Categories = ({ setCategory, category }: CategoriesProps) => {
   return (
     <>
-      <div className="bg-slate-100 h-[51rem] w-1/4 hidden lg:flex flex-col">
+      <div className="bg-slate-100 h-[51rem] w-1/4 z-1 hidden lg:flex flex-col">
         <h2 className="text-left ml-2 text-black font-semibold my-2 ">
           Categories
         </h2>
