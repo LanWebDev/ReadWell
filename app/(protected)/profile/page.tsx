@@ -25,7 +25,7 @@ const ProfilePage = () => {
     <div className=" pt-[6.5rem] ">
       <UserInfo label="Profile" user={user} />
       <div className="bg-white p-10 justify-center flex">
-        <Button type="submit" onClick={onClick} className="">
+        <Button type="submit" onClick={onClick}>
           Sign out
         </Button>
       </div>
