@@ -29,7 +29,7 @@ const SearchInput = ({
     <Input
       type="text"
       placeholder="search books"
-      className="text-black  sm:max-w-[35rem] lg:max-w-[50rem] mx-auto border-gray-300 outline-none"
+      className="text-black  sm:max-w-[35rem] lg:max-w-[50rem] mx-2 sm:mx-auto border-gray-300 outline-none"
       onChange={handleInputChange}
       onKeyDown={(event) => {
         handleSubmit(event);

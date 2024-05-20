@@ -5,7 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "./button";
+
 import { categories } from "@/constants/constants";
 import categoryMenu from "@/assets/categoryMenu.png";
 import Image from "next/image";
@@ -17,13 +17,15 @@ interface CategoriesMenuProps {
 
 const CategoriesMenu = ({ setCategory, category }: CategoriesMenuProps) => {
   return (
-    <div className="hidden max-lg:flex mr-auto mx-2">
+    <div className="hidden max-lg:flex max-sm:mx-3 mr-auto">
       <DropdownMenu>
-        <Button variant={"outline"} className="p-1">
-          <DropdownMenuTrigger>
-            <Image src={categoryMenu} alt="Category menu" className="h-8 w-9" />
-          </DropdownMenuTrigger>
-        </Button>
+        <DropdownMenuTrigger className="">
+          <Image
+            src={categoryMenu}
+            alt="Category menu"
+            className=" min-h-8 min-w-8 h-8 w-8"
+          />
+        </DropdownMenuTrigger>
         <DropdownMenuContent className="grid grid-cols-2">
           {categories.map((item) => (
             <DropdownMenuItem key={item.value}>

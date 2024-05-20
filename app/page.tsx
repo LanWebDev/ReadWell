@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <div className="pt-[8rem]">home</div>
-      <button type="submit">clkc me</button>
+
       <Footer />
     </>
   );
