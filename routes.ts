@@ -1,10 +1,18 @@
+// /**
+//  * An array of routes that are accessible to the public
+//  * These routes do not require authentication
+//  * @type {string[]}
+//  */
+
+// export const publicRoutes = ["/", "/shop"];
+
 /**
- * An array of routes that are accessible to the public
- * These routes do not require authentication
+ * An array of routes that are inaccessible to the public
+ * These routes require authentication
  * @type {string[]}
  */
 
-export const publicRoutes = ["/", "/shop"];
+export const privateRoutes = ["/profile", "/checkout"];
 
 /**
  * An array of routes that are used for authentication

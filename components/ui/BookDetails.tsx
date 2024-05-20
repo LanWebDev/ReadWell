@@ -7,6 +7,7 @@ import { Button } from "./button";
 import { price } from "@/constants/constants";
 
 import Link from "next/link";
+import { Check } from "lucide-react";
 
 const BookDetails = (props: any) => {
   const { setBookId, bookData } = useBook();
@@ -66,7 +67,11 @@ const BookDetails = (props: any) => {
               {bookData.authors ? bookData.authors[0] : "N/A"}
             </p>
 
-            <p className="font-bold text-base pt-2">€{price}</p>
+            <div className="flex align-middle items-center mb-2 mt-10">
+              <Check className="bg-green-100 rounded-full p-1 scale-125 " />
+              <p className="text-successful mx-2 text-green-600">AVAILABLE</p>
+            </div>
+            <p className="font-bold text-base pt-1">€{price}</p>
             <Button
               className="mt-4 w-full font-bold md:max-w-[23rem] md:min-w-[20rem] text-white bg-rose-700 hover:bg-rose-800 hover:shadow-xl hover:scale-105 hover:transition-transform hover:text-white "
               variant={"outline"}

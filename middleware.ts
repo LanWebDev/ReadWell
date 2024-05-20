@@ -5,7 +5,8 @@ import {
   DEFUALT_LOGIN_REDIRECT,
   apiAuthPrefix,
   authRoutes,
-  publicRoutes,
+  // publicRoutes,
+  privateRoutes,
 } from "@/routes";
 
 const { auth } = NextAuth(authConfig);
@@ -15,7 +16,8 @@ export default auth((req): any => {
   const isLoggedIn = !!req.auth;
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+  // const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+  const isPrivateRoute = privateRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
   if (isApiAuthRoute) {
@@ -29,7 +31,7 @@ export default auth((req): any => {
     return null;
   }
 
-  if (!isLoggedIn && !isPublicRoute) {
+  if (!isLoggedIn && isPrivateRoute) {
     return Response.redirect(new URL("/auth/signin", nextUrl));
   }
 
