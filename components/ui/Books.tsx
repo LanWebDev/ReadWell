@@ -2,7 +2,6 @@
 import React from "react";
 import BookCard from "./BookCard";
 import BookPagination from "./BookPagination";
-import { price } from "@/constants/constants";
 import Loading from "./Loading";
 
 interface BooksProps {

@@ -1,4 +1,5 @@
 "use client";
+import { price } from "@/constants/constants";
 import React, { createContext, useState, useEffect, useContext } from "react";
 
 interface CartItemProps {
@@ -26,6 +27,7 @@ interface CartProviderProps {
 }
 
 const CartProvider = ({ children }: CartProviderProps) => {
+  const productPrice = price;
   const [cartItems, setCartItems] = useState<CartItemProps[]>(() => {
     const storedCart = localStorage.getItem("cartItems");
 
@@ -36,6 +38,10 @@ const CartProvider = ({ children }: CartProviderProps) => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
+  const priceRounding = (price: number) => {
+    return Math.round((price + Number.EPSILON) * 100) / 100;
+  };
+
   const addToCart = (item: CartItemProps) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find(
@@ -44,7 +50,11 @@ const CartProvider = ({ children }: CartProviderProps) => {
       if (existingItem) {
         return prevItems.map((cartItem) =>
           cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            ? {
+                ...cartItem,
+                quantity: cartItem.quantity + 1,
+                price: priceRounding(item.price) + productPrice,
+              }
             : cartItem
         );
       } else {
@@ -56,7 +66,13 @@ const CartProvider = ({ children }: CartProviderProps) => {
   const increaseQuantity = (id: number) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+        item.id === id
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+              price: priceRounding(item.price) + productPrice,
+            }
+          : item
       )
     );
   };
@@ -65,7 +81,14 @@ const CartProvider = ({ children }: CartProviderProps) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
         item.id === id
-          ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1 }
+          ? {
+              ...item,
+              quantity: item.quantity > 1 ? item.quantity - 1 : 1,
+              price:
+                priceRounding(item.price) > productPrice
+                  ? priceRounding(item.price) - productPrice
+                  : priceRounding(item.price),
+            }
           : item
       )
     );

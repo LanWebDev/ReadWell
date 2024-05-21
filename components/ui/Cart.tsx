@@ -8,19 +8,30 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
 import Image from "next/image";
 import cartIcon from "@/assets/cart-icon.svg";
 import { Button } from "./button";
 import { useCart } from "@/app/context/CartContext";
 
+import Link from "next/link";
+
 const Cart = () => {
   const {
     cartItems,
     removeFromCart,
-    clearCart,
+
     increaseQuantity,
     decreaseQuantity,
   } = useCart();
+
+  const calculateTotalPrice = () => {
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+  };
 
   return (
     <Sheet>
@@ -35,39 +46,78 @@ const Cart = () => {
         </p>
         <Image src={cartIcon} alt="cart icon" width={35} height={35} />
       </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>My Cart ({cartItems.length})</SheetTitle>
-        </SheetHeader>
-        <div>
-          <ul>
-            {cartItems.map((item: any) => (
-              <li key={item.id} className="flex">
-                <Image
-                  src={item.thumbnail}
-                  alt={item.title}
-                  width={35}
-                  height={35}
-                />
-                <div>{item.title}</div>
-                <div>{item.author}</div>
-                <div>Quantity: {item.quantity}</div>
-                <button onClick={() => increaseQuantity(item.id)}>+</button>
-                <button onClick={() => decreaseQuantity(item.id)}>-</button>
-                <button onClick={() => removeFromCart(item.id)}>Remove</button>
-              </li>
-            ))}
-          </ul>
+      <SheetContent className="">
+        <ScrollArea className="h-full min-w-[270px]">
+          <SheetHeader>
+            <SheetTitle>My Cart ({cartItems.length})</SheetTitle>
+          </SheetHeader>
+          <div>
+            <ul className="my-4">
+              {cartItems.map((item: any) => (
+                <li key={item.id} className="flex my-4">
+                  <div>
+                    <Link href={`/shop/${item.id}`}>
+                      <SheetClose asChild>
+                        <Image
+                          className="min-w-[6rem] min-h-[8rem] max-w-[6rem] max-h-[8rem] shadow-lg border border-stone-300"
+                          src={item.thumbnail}
+                          alt={item.title}
+                          width={80}
+                          height={80}
+                        />
+                      </SheetClose>
+                    </Link>
+                  </div>
+                  <div className="mx-2 max-w-[220px]">
+                    <Link href={`/shop/${item.id}`}>
+                      <SheetClose asChild>
+                        <div className="truncate font-bold">{item.title}</div>
+                      </SheetClose>
+                    </Link>
+                    <div className="truncate text-sm text-stone-600">
+                      {item.author}
+                    </div>
+                    <div>Quantity: {item.quantity}</div>
+                    <div className="flex gap-2  ">
+                      <button
+                        onClick={() => increaseQuantity(item.id)}
+                        className="hover:opacity-50 text-xl"
+                      >
+                        +
+                      </button>
+                      <button
+                        onClick={() => decreaseQuantity(item.id)}
+                        className="hover:opacity-50 text-xl"
+                      >
+                        -
+                      </button>
 
-          <button onClick={clearCart}>Clear Cart</button>
-        </div>
-        <SheetFooter>
-          <SheetClose asChild>
-            <Button type="submit" className="w-full">
-              Checkout
-            </Button>
-          </SheetClose>
-        </SheetFooter>
+                      <button
+                        onClick={() => removeFromCart(item.id)}
+                        className="text-destructive hover:opacity-50"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                    <div>€{item.price.toFixed(2)}</div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <hr />
+          <div className="my-2 flex gap-1">
+            <p className="font-bold">Total Price:</p>
+            <p>${calculateTotalPrice().toFixed(2)}</p>
+          </div>
+          <SheetFooter>
+            <SheetClose asChild>
+              <Button type="submit" className="w-full">
+                Checkout
+              </Button>
+            </SheetClose>
+          </SheetFooter>
+        </ScrollArea>
       </SheetContent>
     </Sheet>
   );
