@@ -13,22 +13,23 @@ const ProfilePage = () => {
     signOut();
   };
 
-  if (!user?.name)
-    return (
-      <div className="pt-[10rem] flex flex-col justify-center items-center">
-        <p className=" text-xl text-black/70">Please refresh the page!</p>
-        <Loading className="w-[4rem]" />
-      </div>
-    );
-
   return (
-    <div className=" pt-[6.5rem] ">
-      <UserInfo label="Profile" user={user} />
-      <div className="bg-white p-10 justify-center flex">
-        <Button type="submit" onClick={onClick}>
-          Sign out
-        </Button>
-      </div>
+    <div>
+      {!user?.name ? (
+        <div className="pt-[10rem] flex flex-col justify-center items-center">
+          <p className=" text-xl text-black/70">Please refresh the page!</p>
+          <Loading className="w-[4rem]" />
+        </div>
+      ) : (
+        <div className=" pt-[6.5rem] ">
+          <UserInfo label="Profile" user={user} />
+          <div className="bg-white p-10 justify-center flex">
+            <Button type="submit" onClick={onClick}>
+              Sign out
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
