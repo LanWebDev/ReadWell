@@ -2,7 +2,6 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -14,6 +13,7 @@ import Image from "next/image";
 import cartIcon from "@/assets/cart-icon.svg";
 import { Button } from "./button";
 import { useCart } from "@/app/context/CartContext";
+import emptyCartImage from "@/assets/empty-cart.png";
 
 import Link from "next/link";
 
@@ -21,17 +21,10 @@ const Cart = () => {
   const {
     cartItems,
     removeFromCart,
-
+    calculateTotalPrice,
     increaseQuantity,
     decreaseQuantity,
   } = useCart();
-
-  const calculateTotalPrice = () => {
-    return cartItems.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
-  };
 
   return (
     <Sheet>
@@ -47,11 +40,20 @@ const Cart = () => {
         <Image src={cartIcon} alt="cart icon" width={35} height={35} />
       </SheetTrigger>
       <SheetContent className="">
-        <ScrollArea className="h-full min-w-[270px]">
-          <SheetHeader>
+        <ScrollArea className="h-full md:min-w-[270px]">
+          <SheetHeader className="text-left">
             <SheetTitle>My Cart ({cartItems.length})</SheetTitle>
           </SheetHeader>
           <div>
+            {cartItems.length === 0 && (
+              <Image
+                className="my-60 h-full w-full"
+                src={emptyCartImage}
+                alt="empty cart"
+                height={500}
+                width={500}
+              />
+            )}
             <ul className="my-4">
               {cartItems.map((item: any) => (
                 <li key={item.id} className="flex my-4">
@@ -68,7 +70,7 @@ const Cart = () => {
                       </SheetClose>
                     </Link>
                   </div>
-                  <div className="mx-2 max-w-[220px]">
+                  <div className="mx-2 max-sm:max-w-[150px] max-w-[220px]">
                     <Link href={`/shop/${item.id}`}>
                       <SheetClose asChild>
                         <div className="truncate font-bold">{item.title}</div>
@@ -99,24 +101,28 @@ const Cart = () => {
                         Remove
                       </button>
                     </div>
-                    <div>€{item.price.toFixed(2)}</div>
+                    <div>€{(item.price * item.quantity).toFixed(2)}</div>
                   </div>
                 </li>
               ))}
             </ul>
           </div>
-          <hr />
-          <div className="my-2 flex gap-1">
-            <p className="font-bold">Total Price:</p>
-            <p>${calculateTotalPrice().toFixed(2)}</p>
-          </div>
-          <SheetFooter>
-            <SheetClose asChild>
-              <Button type="submit" className="w-full">
-                Checkout
-              </Button>
-            </SheetClose>
-          </SheetFooter>
+          {cartItems.length !== 0 && (
+            <>
+              <hr />
+              <div className="my-2 flex gap-1">
+                <p className="font-bold">Total Price:</p>
+                <p>${calculateTotalPrice().toFixed(2)}</p>
+              </div>
+              <SheetFooter>
+                <SheetClose asChild>
+                  <Button type="submit" className="w-full max-sm:w-[12rem]">
+                    Checkout
+                  </Button>
+                </SheetClose>
+              </SheetFooter>
+            </>
+          )}
         </ScrollArea>
       </SheetContent>
     </Sheet>

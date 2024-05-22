@@ -17,7 +17,7 @@ interface CartContextProps {
   increaseQuantity: (id: number) => void;
   decreaseQuantity: (id: number) => void;
   removeFromCart: (id: number) => void;
-  clearCart: () => void;
+  calculateTotalPrice: () => number;
   // syncCartWithBackend: () => Promise<void>;
 }
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -27,7 +27,6 @@ interface CartProviderProps {
 }
 
 const CartProvider = ({ children }: CartProviderProps) => {
-  const productPrice = price;
   const [cartItems, setCartItems] = useState<CartItemProps[]>(() => {
     const storedCart = localStorage.getItem("cartItems");
 
@@ -37,10 +36,6 @@ const CartProvider = ({ children }: CartProviderProps) => {
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
-
-  const priceRounding = (price: number) => {
-    return Math.round((price + Number.EPSILON) * 100) / 100;
-  };
 
   const addToCart = (item: CartItemProps) => {
     setCartItems((prevItems) => {
@@ -53,7 +48,6 @@ const CartProvider = ({ children }: CartProviderProps) => {
             ? {
                 ...cartItem,
                 quantity: cartItem.quantity + 1,
-                price: priceRounding(item.price) + productPrice,
               }
             : cartItem
         );
@@ -70,7 +64,6 @@ const CartProvider = ({ children }: CartProviderProps) => {
           ? {
               ...item,
               quantity: item.quantity + 1,
-              price: priceRounding(item.price) + productPrice,
             }
           : item
       )
@@ -84,10 +77,6 @@ const CartProvider = ({ children }: CartProviderProps) => {
           ? {
               ...item,
               quantity: item.quantity > 1 ? item.quantity - 1 : 1,
-              price:
-                priceRounding(item.price) > productPrice
-                  ? priceRounding(item.price) - productPrice
-                  : priceRounding(item.price),
             }
           : item
       )
@@ -96,10 +85,6 @@ const CartProvider = ({ children }: CartProviderProps) => {
 
   const removeFromCart = (id: number) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
-
-  const clearCart = () => {
-    setCartItems([]);
   };
 
   // const syncCartWithBackend = async () => {
@@ -119,6 +104,13 @@ const CartProvider = ({ children }: CartProviderProps) => {
   //   }
   // };
 
+  const calculateTotalPrice = () => {
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+  };
+
   console.log(cartItems);
 
   return (
@@ -129,7 +121,8 @@ const CartProvider = ({ children }: CartProviderProps) => {
         decreaseQuantity,
         addToCart,
         removeFromCart,
-        clearCart /*syncCartWithBackend*/,
+        calculateTotalPrice,
+        /*syncCartWithBackend*/
       }}
     >
       {children}
