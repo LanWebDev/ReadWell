@@ -24,6 +24,7 @@ const Cart = () => {
     calculateTotalPrice,
     increaseQuantity,
     decreaseQuantity,
+    calculateTotalQuantity,
   } = useCart();
 
   return (
@@ -35,14 +36,14 @@ const Cart = () => {
             "absolute scale-75 -translate-y-2 translate-x-3 bg-blue-400 rounded-full border p-0 m-0 w-[1.7rem] min-w-min text-white"
           } `}
         >
-          {cartItems.length > 0 ? cartItems.length : ""}
+          {cartItems.length > 0 ? calculateTotalQuantity() : ""}
         </p>
         <Image src={cartIcon} alt="cart icon" width={35} height={35} />
       </SheetTrigger>
       <SheetContent className="">
         <ScrollArea className="h-full md:min-w-[270px]">
           <SheetHeader className="text-left">
-            <SheetTitle>My Cart ({cartItems.length})</SheetTitle>
+            <SheetTitle>My Cart ({calculateTotalQuantity()})</SheetTitle>
           </SheetHeader>
           <div>
             {cartItems.length === 0 && (

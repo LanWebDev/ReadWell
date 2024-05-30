@@ -24,6 +24,7 @@ model User {
   password      String?
   role          UserRole @default(USER)
   accounts      Account[]
+  cart          CartItem[]
 
  
   @@map("users")
@@ -50,12 +51,15 @@ model Account {
   @@map("accounts")
 }
 
-// model VerificationToken {
-//   id String @id @default(cuid())
-//   email String
-//   token String @unique
-//   expired DateTime
+model CartItem {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  productId String
+  quantity  Int
+  price     Float
+  thumbnail String
+  title     String
+  author    String
 
-//   @@unique([email,token])
-// }
-
+  user      User    @relation(fields: [userId], references: [id])
+}

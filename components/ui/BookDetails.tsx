@@ -138,7 +138,10 @@ const BookDetails = (props: any) => {
                 </div>
                 <div>
                   {bookData.previewLink ? (
-                    <Link className="underline" href={bookData.previewLink}>
+                    <Link
+                      className="underline text-[#0000EE]"
+                      href={bookData.previewLink}
+                    >
                       {bookData.previewLink}
                     </Link>
                   ) : (
