@@ -70,3 +70,14 @@ export const categories: { value: string; label: string }[] = [
   { value: "travel", label: "Travel" },
   { value: "crime", label: "Crime" },
 ];
+
+// export const featuredBooks = [
+//   {
+//     id: number;
+//   thumbnail: string;
+//   title: string;
+//   author: string;
+//   price: number;
+//   quantity: number;
+//   }
+// ];

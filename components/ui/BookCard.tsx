@@ -2,25 +2,14 @@
 
 import Image from "next/image";
 import React from "react";
-import { Button } from "./button";
+
 import Link from "next/link";
-import { useCart } from "@/app/context/CartContext";
+
 import { price } from "@/constants/constants";
+import AddToCartButton from "./AddToCartButton";
 
 const BookCard = (props: any) => {
-  const { addToCart } = useCart();
-
-  const handleAddToCart = () => {
-    addToCart({
-      id: props.id,
-      thumbnail: props.thumbnail,
-      title: props.title,
-      author: props.author,
-      quantity: 1,
-      price: price,
-    });
-  };
-
+  console.log(props);
   return (
     <>
       <div className="m-4 max-w-max max-md:flex max-md:gap-3" key={props.id}>
@@ -51,13 +40,15 @@ const BookCard = (props: any) => {
           </p>
 
           <p className="font-bold text-base pt-2">€{price}</p>
-          <Button
-            onClick={handleAddToCart}
+          <AddToCartButton
             className="mt-4 w-[170px] max-md:w-[130px] font-bold text-white bg-rose-700 hover:bg-rose-800 hover:shadow-xl hover:scale-105 hover:transition-transform hover:text-white max-md:absolute bottom-1"
-            variant={"outline"}
-          >
-            ADD TO CART
-          </Button>
+            id={props.id}
+            thumbnail={props.thumbnail}
+            title={props.title ? props.title : "N/A"}
+            author={props.author ? props.author[0] : "N/A"}
+            quantity={1}
+            price={price}
+          />
         </div>
       </div>
     </>

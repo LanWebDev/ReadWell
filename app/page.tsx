@@ -35,7 +35,6 @@ export default function Home() {
             <Image src={booksPng} alt="books" className=" " />
           </div>
         </div>
-        <div className="pt-[6.5rem]">home</div>
       </div>
       <Newsletter />
       <Footer />

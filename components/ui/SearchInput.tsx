@@ -24,7 +24,7 @@ const SearchInput = ({
     setSearch(e.target.value);
     setPage(1);
     setDisplayItems(0);
-  }, 500);
+  }, 700);
   return (
     <Input
       type="text"

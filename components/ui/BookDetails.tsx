@@ -8,6 +8,8 @@ import { price } from "@/constants/constants";
 
 import Link from "next/link";
 import { Check } from "lucide-react";
+import { useCart } from "@/app/context/CartContext";
+import AddToCartButton from "./AddToCartButton";
 
 const BookDetails = (props: any) => {
   const { setBookId, bookData } = useBook();
@@ -52,7 +54,11 @@ const BookDetails = (props: any) => {
             <div>
               <Image
                 className=" shadow-lg"
-                src={bookData.imageLinks?.medium}
+                src={
+                  bookData.imageLinks?.medium
+                    ? bookData.imageLinks?.medium
+                    : bookData.imageLinks?.thumbnail
+                }
                 alt="book cover"
                 height={300}
                 width={300}
@@ -72,13 +78,19 @@ const BookDetails = (props: any) => {
               <p className="text-successful mx-2 text-green-600">AVAILABLE</p>
             </div>
             <p className="font-bold text-base pt-1">€{price}</p>
-            <Button
-              className="mt-4 w-full font-bold md:max-w-[23rem] md:min-w-[20rem] text-white bg-rose-700 hover:bg-rose-800 hover:shadow-xl hover:scale-105 hover:transition-transform hover:text-white "
-              variant={"outline"}
-            >
-              ADD TO CART
-            </Button>
-
+            <AddToCartButton
+              className="mt-4 w-full font-bold md:max-w-[23rem] md:min-w-[20rem] text-white bg-rose-700 hover:bg-rose-800 hover:shadow-xl hover:scale-105 hover:transition-transform hover:text-white"
+              id={props.id}
+              thumbnail={
+                bookData.imageLinks?.thumbnail
+                  ? bookData.imageLinks?.thumbnail
+                  : "N/A"
+              }
+              title={bookData.title ? bookData.title : "N/A"}
+              author={bookData.authors ? bookData.authors[0] : "N/A"}
+              quantity={1}
+              price={price}
+            />
             <div>
               <h3 className="text-3xl mt-5 mb-2 font-bold font-serif">
                 Description
@@ -160,7 +172,6 @@ const BookDetails = (props: any) => {
                 </p>
               </div>
             </div>
-            {/* AVGratings */}
           </div>
         </div>
       </div>

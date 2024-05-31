@@ -182,6 +182,9 @@ const CartProvider = ({ children }: CartProviderProps) => {
   const calculateTotalQuantity = () => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   };
+
+  console.log(cartItems);
+
   return (
     <CartContext.Provider
       value={{
