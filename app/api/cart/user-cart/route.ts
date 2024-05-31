@@ -9,13 +9,11 @@ export async function GET(req: Request) {
   if (!session) return;
 
   const userId = session.user.id;
-  console.log(userId);
 
   try {
     const cartItems = await db.cartItem.findMany({
       where: { userId },
     });
-    console.log(cartItems);
 
     return NextResponse.json(cartItems, { status: 200 });
   } catch (error) {

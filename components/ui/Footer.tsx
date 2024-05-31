@@ -5,7 +5,7 @@ import { footerIcons } from "@/constants/constants";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-300 p-10 flex justify-center items-center flex-col  ">
+    <footer className="bg-blue-200 p-10 flex justify-center items-center flex-col  ">
       <Image src={logo} alt="logo" height={70} />
       <p className="m-4">©2024 ReadWell. All Rights reserved</p>
       <div className="flex-row">

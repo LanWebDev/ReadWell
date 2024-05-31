@@ -28,7 +28,7 @@ const SearchInput = ({
   return (
     <Input
       type="text"
-      placeholder="search books"
+      placeholder="Search books, authors, ISBNs"
       className="text-black  sm:max-w-[35rem] lg:max-w-[50rem] mx-2 sm:mx-auto border-gray-300 outline-none"
       onChange={handleInputChange}
       onKeyDown={(event) => {

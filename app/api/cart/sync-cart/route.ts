@@ -10,7 +10,6 @@ export async function POST(req: Request) {
   if (!session) return;
 
   const { cartItems } = await req.json();
-  console.log(cartItems);
 
   try {
     await db.cartItem.deleteMany({
@@ -30,7 +29,6 @@ export async function POST(req: Request) {
       skipDuplicates: true,
     });
 
-    console.log("test");
     return NextResponse.json(
       { message: "Cart synced successfully" },
       { status: 201 }

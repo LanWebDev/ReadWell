@@ -62,4 +62,6 @@ model CartItem {
   author    String
 
   user      User    @relation(fields: [userId], references: [id])
+
+  @@unique([userId, productId])
 }

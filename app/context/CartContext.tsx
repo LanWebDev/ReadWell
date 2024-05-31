@@ -38,7 +38,6 @@ interface CartProviderProps {
 const CartProvider = ({ children }: CartProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
   const [isMounted, setIsMounted] = useState(false);
-  const [hasMerged, setHasMerged] = useState(false);
 
   const user = useCurrentUser();
 
@@ -68,12 +67,14 @@ const CartProvider = ({ children }: CartProviderProps) => {
           price: item.price,
           thumbnail: item.thumbnail,
           title: item.title,
-          author: item.author[0],
+          author: item.author,
         }));
 
         await axios.post("/api/cart/sync-cart", {
           cartItems: cartItemsData,
         });
+
+        console.log("Cart synced with backend");
       } catch (error) {
         const err = error as Error;
         console.error("Error syncing cart with backend:", err.message);
@@ -83,7 +84,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
 
   useEffect(() => {
     const fetchUserCart = async () => {
-      if (user && !hasMerged) {
+      if (user) {
         try {
           const response = await axios.get("/api/cart/user-cart");
           const userCart = response.data;
@@ -99,12 +100,10 @@ const CartProvider = ({ children }: CartProviderProps) => {
 
           // Merge user cart with local cart items
           const mergedCartItems = [...cartItems];
-
           transformedCartItems.forEach((userCartItem: any) => {
             const existingItemIndex = mergedCartItems.findIndex(
               (cartItem) => cartItem.id === userCartItem.id
             );
-
             if (existingItemIndex !== -1) {
               mergedCartItems[existingItemIndex].quantity +=
                 userCartItem.quantity;
@@ -113,12 +112,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
             }
           });
 
-          // Ensure the merged cart items are only updated if there are changes
-          if (JSON.stringify(cartItems) !== JSON.stringify(mergedCartItems)) {
-            setCartItems(mergedCartItems);
-          }
-
-          setHasMerged(true);
+          setCartItems(mergedCartItems);
         } catch (error) {
           console.error("Error fetching user cart:", error);
         }
@@ -126,13 +120,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
     };
 
     fetchUserCart();
-  }, [user, hasMerged]);
-
-  useEffect(() => {
-    if (isMounted && user && hasMerged) {
-      syncCartWithBackend();
-    }
-  }, [cartItems, syncCartWithBackend, user, isMounted, hasMerged]);
+  }, [user]);
 
   const addToCart = (item: CartItemProps) => {
     setCartItems((prevItems) => {
