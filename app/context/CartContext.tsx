@@ -38,6 +38,7 @@ interface CartProviderProps {
 const CartProvider = ({ children }: CartProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
   const [isMounted, setIsMounted] = useState(false);
+  const [hasFetchedUserCart, setHasFetchedUserCart] = useState(false);
 
   const user = useCurrentUser();
 
@@ -48,18 +49,21 @@ const CartProvider = ({ children }: CartProviderProps) => {
         setCartItems(JSON.parse(storedCart));
       }
       setIsMounted(true);
+      console.log("Cart fetched from local storage:", storedCart);
     }
   }, []);
 
   useEffect(() => {
-    if (isMounted) {
+    if (isMounted && !user) {
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      console.log("Cart saved to local storage:", cartItems);
     }
-  }, [cartItems, isMounted]);
+  }, [cartItems, isMounted, user]);
 
   const syncCartWithBackend = useCallback(async () => {
     if (user) {
       try {
+        console.log("Syncing cart with backend:", cartItems);
         const cartItemsData = cartItems.map((item) => ({
           userId: user.id,
           productId: item.id,
@@ -82,45 +86,59 @@ const CartProvider = ({ children }: CartProviderProps) => {
     }
   }, [cartItems, user]);
 
-  useEffect(() => {
-    const fetchUserCart = async () => {
-      if (user) {
-        try {
-          const response = await axios.get("/api/cart/user-cart");
-          const userCart = response.data;
+  const fetchUserCart = useCallback(async () => {
+    if (user && !hasFetchedUserCart) {
+      try {
+        const response = await axios.get("/api/cart/user-cart");
+        const userCart = response.data;
 
-          const transformedCartItems = userCart.map((item: any) => ({
-            id: item.productId,
-            thumbnail: item.thumbnail,
-            title: item.title,
-            author: item.author,
-            price: item.price,
-            quantity: item.quantity,
-          }));
+        console.log("Fetching user cart from backend", userCart);
+        const transformedCartItems = userCart.map((item: any) => ({
+          id: item.productId,
+          thumbnail: item.thumbnail,
+          title: item.title,
+          author: item.author,
+          price: item.price,
+          quantity: item.quantity,
+        }));
 
-          // Merge user cart with local cart items
-          const mergedCartItems = [...cartItems];
-          transformedCartItems.forEach((userCartItem: any) => {
-            const existingItemIndex = mergedCartItems.findIndex(
-              (cartItem) => cartItem.id === userCartItem.id
-            );
-            if (existingItemIndex !== -1) {
-              mergedCartItems[existingItemIndex].quantity +=
-                userCartItem.quantity;
-            } else {
-              mergedCartItems.push(userCartItem);
-            }
-          });
+        // Merge user cart with local cart items
+        const mergedCartItems = [...cartItems];
+        transformedCartItems.forEach((userCartItem: any) => {
+          const existingItemIndex = mergedCartItems.findIndex(
+            (cartItem) => cartItem.id === userCartItem.id
+          );
+          if (existingItemIndex !== -1) {
+            mergedCartItems[existingItemIndex].quantity +=
+              userCartItem.quantity;
+          } else {
+            mergedCartItems.push(userCartItem);
+          }
+        });
 
-          setCartItems(mergedCartItems);
-        } catch (error) {
-          console.error("Error fetching user cart:", error);
-        }
+        setCartItems(mergedCartItems);
+        localStorage.removeItem("cartItems");
+        setHasFetchedUserCart(true);
+
+        console.log("User cart fetched and merged:", mergedCartItems);
+      } catch (error) {
+        const err = error as Error;
+        console.error("Error fetching user cart:", err.message);
       }
-    };
+    }
+  }, [user, cartItems, hasFetchedUserCart]);
 
-    fetchUserCart();
-  }, [user]);
+  useEffect(() => {
+    if (user) {
+      fetchUserCart();
+    }
+  }, [user, fetchUserCart]);
+
+  useEffect(() => {
+    if (user && isMounted) {
+      syncCartWithBackend();
+    }
+  }, [user, cartItems, isMounted, syncCartWithBackend]);
 
   const addToCart = (item: CartItemProps) => {
     setCartItems((prevItems) => {

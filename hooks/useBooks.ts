@@ -15,30 +15,34 @@ const useBooks = () => {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
 
   useEffect(() => {
-    setLoading(true);
-
-    const fetchData = async () => {
-      await axios
-        .get(
-          `https://www.googleapis.com/books/v1/volumes?q=${search}${
-            category && `subject:${category}`
-          }&startIndex=${displayItems}&maxResults=20`
-        )
-        .then((response) => {
-          const data = response.data.items;
-          const TotalItems = response.data.totalItems;
-          setTotalItems(TotalItems);
-          setSearchedBooks(data);
-          if (data) {
-          } else {
-            setError(true);
-            setSearchedBooks([]);
-          }
-        })
-        .catch((err) => console.error(err));
-      setLoading(false);
-    };
-    fetchData();
+    if (category || search) {
+      setLoading(true);
+      const fetchData = async () => {
+        await axios
+          .get(
+            `https://www.googleapis.com/books/v1/volumes?q=${search}${
+              category && `subject:${category}`
+            }&startIndex=${displayItems}&maxResults=20`
+          )
+          .then((response) => {
+            const data = response.data.items;
+            const TotalItems = response.data.totalItems;
+            setTotalItems(TotalItems);
+            setSearchedBooks(data);
+            if (data) {
+            } else {
+              setError(true);
+              setSearchedBooks([]);
+            }
+          })
+          .catch((err) => console.error(err));
+        setLoading(false);
+      };
+      fetchData();
+    } else {
+      setError(true);
+      setSearchedBooks([]);
+    }
   }, [apiKey, search, category, displayItems]);
 
   const nextPageHandler = () => {

@@ -26,7 +26,7 @@ export default function Home() {
               Favorite Read.
             </p>
             <Link href={"/shop"}>
-              <Button className="bg-blue-600 w-[12rem] hover:bg-blue-600/80 scale-125 mt-4 ml-6">
+              <Button className="bg-blue-600 w-[12rem] hover:bg-blue-600/80 scale-125 mt-6 ml-6">
                 Shop Now
               </Button>
             </Link>

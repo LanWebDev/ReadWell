@@ -16,8 +16,6 @@ const AddToCartButton = (props: any) => {
     });
   };
 
-  console.log(props);
-
   return (
     <Button
       onClick={handleAddToCart}

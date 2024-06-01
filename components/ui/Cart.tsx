@@ -20,6 +20,7 @@ import Link from "next/link";
 const Cart = () => {
   const {
     cartItems,
+
     removeFromCart,
     calculateTotalPrice,
     increaseQuantity,

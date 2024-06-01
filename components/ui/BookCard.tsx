@@ -9,7 +9,6 @@ import { price } from "@/constants/constants";
 import AddToCartButton from "./AddToCartButton";
 
 const BookCard = (props: any) => {
-  console.log(props);
   return (
     <>
       <div className="m-4 max-w-max max-md:flex max-md:gap-3" key={props.id}>

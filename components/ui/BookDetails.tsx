@@ -3,12 +3,12 @@ import useBook from "@/hooks/useBook";
 import Image from "next/image";
 import React, { useEffect } from "react";
 import Footer from "./Footer";
-import { Button } from "./button";
+
 import { price } from "@/constants/constants";
 
 import Link from "next/link";
 import { Check } from "lucide-react";
-import { useCart } from "@/app/context/CartContext";
+
 import AddToCartButton from "./AddToCartButton";
 
 const BookDetails = (props: any) => {
