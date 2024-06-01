@@ -71,13 +71,98 @@ export const categories: { value: string; label: string }[] = [
   { value: "crime", label: "Crime" },
 ];
 
-// export const featuredBooks = [
-//   {
-//     id: number;
-//   thumbnail: string;
-//   title: string;
-//   author: string;
-//   price: number;
-//   quantity: number;
-//   }
-// ];
+export const featuredFictionBooks = [
+  {
+    id: "TazgEAAAQBAJ",
+    thumbnail:
+      "http://books.google.com/books/content?id=TazgEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+    title: "You Like It Darker",
+    author: ["Stephen King"],
+    price: 14.99,
+    quantity: 1,
+  },
+  {
+    author: ["Kristin Hannah"],
+    id: "EDQb0AEACAAJ",
+    price: 14.99,
+    quantity: 1,
+    thumbnail:
+      "http://books.google.com/books/content?id=EDQb0AEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+    title: "The Women",
+  },
+  {
+    author: ["Nora Roberts"],
+    id: "4hHYEAAAQBAJ",
+    price: 14.99,
+    quantity: 1,
+    thumbnail:
+      "http://books.google.com/books/content?id=4hHYEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+    title: "Mind Games",
+  },
+  {
+    author: ["Emily Henry"],
+    id: "m9PMEAAAQBAJ",
+    price: 14.99,
+    quantity: 1,
+    thumbnail:
+      "http://books.google.com/books/content?id=m9PMEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+    title: "Funny Story",
+  },
+  {
+    author: ["Colleen Hoover"],
+    id: "wmnuDwAAQBAJ",
+    price: 14.99,
+    quantity: 1,
+    thumbnail:
+      "http://books.google.com/books/content?id=wmnuDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+    title: "It Ends with Us",
+  },
+];
+
+export const featuredNonFictionBooks = [
+  {
+    author: ["Bill Maher"],
+    id: "aiToEAAAQBAJ",
+    price: 14.99,
+    quantity: 1,
+    thumbnail:
+      "http://books.google.com/books/content?id=aiToEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+    title: "What This Comedian Said Will Shock You",
+  },
+  {
+    author: ["Erik Larson"],
+    id: "lpY80AEACAAJ",
+    price: 14.99,
+    quantity: 1,
+    thumbnail:
+      "http://books.google.com/books/content?id=lpY80AEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+    title: "The Demon of Unrest",
+  },
+  {
+    author: ["Jonathan Haidt"],
+    id: "I03HEAAAQBAJ",
+    price: 14.99,
+    quantity: 1,
+    thumbnail:
+      "http://books.google.com/books/content?id=I03HEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+    title: "The Anxious Generation",
+  },
+  {
+    author: ["George Stephanopoulos"],
+    id: "s5gn0AEACAAJ",
+    price: 14.99,
+    quantity: 1,
+    thumbnail:
+      "http://books.google.com/books/content?id=s5gn0AEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+    title: "The Situation Room",
+  },
+  {
+    author: ["Elizabeth Beller"],
+    id: "fRjdEAAAQBAJ",
+    price: 14.99,
+    quantity: 1,
+    thumbnail:
+      "http://books.google.com/books/content?id=fRjdEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+    title: "Once Upon a Time",
+  },
+];

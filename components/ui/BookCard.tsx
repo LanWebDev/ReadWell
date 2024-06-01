@@ -11,7 +11,10 @@ import AddToCartButton from "./AddToCartButton";
 const BookCard = (props: any) => {
   return (
     <>
-      <div className="m-4 max-w-max max-md:flex max-md:gap-3" key={props.id}>
+      <div
+        className={`${props.className} m-4 max-w-max max-md:flex max-md:gap-3`}
+        key={props.id}
+      >
         <Link href={`/shop/${props.id}`}>
           {props.thumbnail ? (
             <Image

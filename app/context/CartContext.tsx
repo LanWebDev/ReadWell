@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useContext,
   useCallback,
+  useRef,
 } from "react";
 
 import { useCurrentUser } from "@/hooks/useCurrentUser";
@@ -38,7 +39,10 @@ interface CartProviderProps {
 const CartProvider = ({ children }: CartProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
   const [isMounted, setIsMounted] = useState(false);
-  const [hasFetchedUserCart, setHasFetchedUserCart] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [initialLoadCompleted, setInitialLoadCompleted] = useState(false);
+
+  const lastSyncedCartRef = useRef<CartItemProps[]>([]);
 
   const user = useCurrentUser();
 
@@ -61,7 +65,8 @@ const CartProvider = ({ children }: CartProviderProps) => {
   }, [cartItems, isMounted, user]);
 
   const syncCartWithBackend = useCallback(async () => {
-    if (user) {
+    if (user && !initialLoadCompleted) {
+      setIsSyncing(true);
       try {
         console.log("Syncing cart with backend:", cartItems);
         const cartItemsData = cartItems.map((item) => ({
@@ -78,16 +83,20 @@ const CartProvider = ({ children }: CartProviderProps) => {
           cartItems: cartItemsData,
         });
 
+        lastSyncedCartRef.current = cartItems;
         console.log("Cart synced with backend");
       } catch (error) {
         const err = error as Error;
         console.error("Error syncing cart with backend:", err.message);
+      } finally {
+        setIsSyncing(false);
+        setInitialLoadCompleted;
       }
     }
-  }, [cartItems, user]);
+  }, [user]);
 
   const fetchUserCart = useCallback(async () => {
-    if (user && !hasFetchedUserCart) {
+    if (user && isMounted && !isSyncing) {
       try {
         const response = await axios.get("/api/cart/user-cart");
         const userCart = response.data;
@@ -118,7 +127,6 @@ const CartProvider = ({ children }: CartProviderProps) => {
 
         setCartItems(mergedCartItems);
         localStorage.removeItem("cartItems");
-        setHasFetchedUserCart(true);
 
         console.log("User cart fetched and merged:", mergedCartItems);
       } catch (error) {
@@ -126,19 +134,25 @@ const CartProvider = ({ children }: CartProviderProps) => {
         console.error("Error fetching user cart:", err.message);
       }
     }
-  }, [user, cartItems, hasFetchedUserCart]);
+  }, [user]);
 
-  useEffect(() => {
-    if (user) {
-      fetchUserCart();
-    }
-  }, [user, fetchUserCart]);
+  // useEffect(() => {
+  //   if (user) {
+  //     fetchUserCart();
+  //   }
+  // }, [user, fetchUserCart]);
 
-  useEffect(() => {
-    if (user && isMounted) {
-      syncCartWithBackend();
-    }
-  }, [user, cartItems, isMounted, syncCartWithBackend]);
+  // useEffect(() => {
+  //   if (
+  //     user &&
+  //     isMounted &&
+  //     initialLoadCompleted &&
+  //     lastSyncedCartRef.current !== cartItems
+  //   ) {
+  //     const syncTimeout = setTimeout(syncCartWithBackend, 500); // throttle the sync
+  //     return () => clearTimeout(syncTimeout);
+  //   }
+  // }, [user, cartItems, isMounted, initialLoadCompleted, syncCartWithBackend]);
 
   const addToCart = (item: CartItemProps) => {
     setCartItems((prevItems) => {
