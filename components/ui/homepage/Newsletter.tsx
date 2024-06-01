@@ -1,6 +1,6 @@
 import React from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "./button";
+import { Input } from "@/components/ui/shadcn/input";
+import { Button } from "../shadcn/button";
 
 const Newsletter = () => {
   return (

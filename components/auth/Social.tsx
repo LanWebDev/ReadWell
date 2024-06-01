@@ -3,7 +3,7 @@ import { DEFUALT_LOGIN_REDIRECT } from "@/routes";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
-import { Button } from "../ui/button";
+import { Button } from "../ui/shadcn/button";
 
 const Social = () => {
   const onClick = (provider: "google" | "github") => {

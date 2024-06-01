@@ -1,5 +1,5 @@
 import React from "react";
-import BookCard from "./BookCard";
+import BookCard from "../BookCard";
 import { featuredNonFictionBooks } from "@/constants/constants";
 
 const TrendingNonFictionBooks = () => {

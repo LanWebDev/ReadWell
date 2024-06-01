@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/shadcn/button";
 import { TriangleAlertIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";

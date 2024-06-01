@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Button } from "./button";
+import { Button } from "../shadcn/button";
 import booksPng from "@/assets/home-books.png";
 
 const Hero = () => {

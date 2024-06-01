@@ -1,6 +1,6 @@
 import { useCart } from "@/app/context/CartContext";
 import React from "react";
-import { Button } from "./button";
+import { Button } from "./shadcn/button";
 
 const AddToCartButton = (props: any) => {
   const { addToCart } = useCart();

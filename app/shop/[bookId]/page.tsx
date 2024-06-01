@@ -1,6 +1,6 @@
 "use client";
 
-import BookDetails from "@/components/ui/BookDetails";
+import BookDetails from "@/components/ui/shop/BookDetails";
 import React from "react";
 
 const page = ({ params }: { params: { bookId: string } }) => {

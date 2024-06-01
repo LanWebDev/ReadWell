@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import BookCard from "./BookCard";
+import BookCard from "../BookCard";
 import BookPagination from "./BookPagination";
-import Loading from "./Loading";
+import Loading from "../Loading";
 
 interface BooksProps {
   searchedBooks: any;

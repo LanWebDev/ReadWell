@@ -1,10 +1,10 @@
 "use client";
-import Books from "@/components/ui/Books";
+import Books from "@/components/ui/shop/Books";
 import Footer from "@/components/ui/Footer";
-import Categories from "@/components/ui/Categories";
-import SearchInput from "@/components/ui/SearchInput";
+import Categories from "@/components/ui/shop/Categories";
+import SearchInput from "@/components/ui/shadcn/SearchInput";
 import useBooks from "@/hooks/useBooks";
-import CategoriesMenu from "@/components/ui/CategoriesMenu";
+import CategoriesMenu from "@/components/ui/shop/CategoriesMenu";
 
 export default function Shop() {
   const {

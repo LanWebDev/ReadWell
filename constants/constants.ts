@@ -166,3 +166,36 @@ export const featuredNonFictionBooks = [
     title: "Once Upon a Time",
   },
 ];
+
+export const reviews = [
+  {
+    id: 0,
+    quote:
+      "Absolutely love this bookstore app! The interface is sleek and easy to navigate, making it a breeze to find and purchase my favorite reads. Plus, the recommendations are spot-on—I've discovered some amazing new authors through this app. Highly recommend for any bookworm!",
+    name: "John Doe",
+  },
+  {
+    id: 1,
+    quote:
+      "As an avid reader, I've tried numerous bookstore apps, but this one stands out for its vast selection and seamless user experience. Whether I'm looking for the latest bestseller or a niche genre, I can always count on finding it here. Plus, the personalized recommendations help me discover hidden gems I might have otherwise missed.",
+    name: "Anonymous",
+  },
+  {
+    id: 2,
+    quote:
+      "I've been using this app for months now, and it's become my go-to for all things books. The ability to create and manage wishlists is incredibly handy, especially around gift-giving seasons. And the in-app reader reviews make it easy to gauge whether a book is worth diving into. 10/10 recommend!",
+    name: "Jane Doe",
+  },
+  {
+    id: 3,
+    quote:
+      "Finally, a bookstore app that gets it right! The search function is robust, allowing me to filter by author, genre, publication date, and more. Plus, the seamless integration with my e-reader means I can purchase and start reading a new book in just a few taps. This app has revolutionized the way I discover and consume literature.",
+    name: "Anonymous",
+  },
+  {
+    id: 4,
+    quote:
+      "I can't say enough good things about this app. It's like having a bookstore in my pocket! The curated collections are a fantastic way to discover new titles, and I love how easy it is to browse by category or theme. Whether I'm in the mood for a gripping thriller or a heartwarming romance, I know I can find exactly what I'm looking for here.",
+    name: "Anonymous",
+  },
+];

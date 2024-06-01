@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 
 import { navigation } from "@/constants/constants";
 import Link from "next/link";
-import { Button } from "./button";
+import { Button } from "./shadcn/button";
 import { useState } from "react";
 import { HamburgerBtn } from "./HamburgerButton";
 import Logo from "@/assets/ReadWell.png";

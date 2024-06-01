@@ -1,8 +1,11 @@
 import Footer from "@/components/ui/Footer";
-import Newsletter from "@/components/ui/Newsletter";
-import TrendingFictionBooks from "@/components/ui/TrendingFictionBooks";
-import TrendingNonFictionBooks from "@/components/ui/TrendingNonFictionBooks";
-import Hero from "@/components/ui/Hero";
+import Newsletter from "@/components/ui/homepage/Newsletter";
+import TrendingFictionBooks from "@/components/ui/homepage/TrendingFictionBooks";
+import TrendingNonFictionBooks from "@/components/ui/homepage/TrendingNonFictionBooks";
+import Hero from "@/components/ui/homepage/Hero";
+import FavoriteBook from "@/components/ui/homepage/FavoriteBook";
+
+import Feedback from "@/components/ui/homepage/Feedback";
 
 export const metadata = {
   title: "ReadWell",
@@ -15,10 +18,10 @@ export default function Home() {
       <div>
         <Hero />
         <TrendingFictionBooks />
-        <div className="my-6">
-          <hr className="border-2" />
-        </div>
+        <div className="my-20" />
         <TrendingNonFictionBooks />
+        <FavoriteBook />
+        <Feedback />
       </div>
       <Newsletter />
       <Footer />

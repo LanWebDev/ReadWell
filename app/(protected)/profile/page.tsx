@@ -2,7 +2,7 @@
 
 import { UserInfo } from "@/components/auth/UserInfo";
 import Loading from "@/components/ui/Loading";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/shadcn/button";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { signOut } from "next-auth/react";
 

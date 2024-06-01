@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/shadcn/button";
 import { TriangleAlertIcon } from "lucide-react";
 import { Butterfly_Kids } from "next/font/google";
 import Link from "next/link";

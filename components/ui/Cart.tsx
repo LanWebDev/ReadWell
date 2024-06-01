@@ -6,12 +6,12 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { ScrollArea } from "@/components/ui/scroll-area";
+} from "@/components/ui/shadcn/sheet";
+import { ScrollArea } from "@/components/ui/shadcn/scroll-area";
 
 import Image from "next/image";
 import cartIcon from "@/assets/cart-icon.svg";
-import { Button } from "./button";
+import { Button } from "./shadcn/button";
 import { useCart } from "@/app/context/CartContext";
 import emptyCartImage from "@/assets/empty-cart.png";
 

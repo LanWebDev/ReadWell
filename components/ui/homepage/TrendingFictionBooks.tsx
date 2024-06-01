@@ -1,6 +1,6 @@
 import { featuredFictionBooks } from "@/constants/constants";
 import React from "react";
-import BookCard from "./BookCard";
+import BookCard from "../BookCard";
 
 const TrendingFictionBooks = () => {
   return (
