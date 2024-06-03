@@ -6,7 +6,7 @@ import booksPng from "@/assets/home-books.png";
 
 const Hero = () => {
   return (
-    <div className="bg-blue-100 h-[50rem] flex pt-[13rem]">
+    <div className="bg-blue-100 h-[50rem] flex pt-[13rem] ">
       <div className="p-10 lg:w-[50%] ">
         <p className="sm:text-[4rem] text-[3rem] font-bold ">
           Buy books <br />{" "}

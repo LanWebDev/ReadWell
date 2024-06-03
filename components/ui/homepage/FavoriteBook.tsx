@@ -21,10 +21,11 @@ const FavoriteBook = () => {
           <span className="text-blue-600">Book Here!</span>
         </p>
         <p className="mb-10 text-lg md:w-5/6">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem
-          quidem non sunt dolorum! Minima ipsam odio deserunt quae! Commodi
-          perferendis praesentium labore incidunt, suscipit perspiciatis autem
-          minima dolor voluptas. Molestiae!
+          Explore a diverse collection of books that cater to every interest.
+          From gripping mysteries and heartwarming romances to insightful
+          non-fiction and bestsellers, we have it all. With easy navigation and
+          unbeatable deals, your next great read is just a click away. Start
+          your reading adventure with us today!
         </p>
         <div className="flex flex-col sm:flex-row justify-between gap-6 md:w-3/4 my-14">
           <div>

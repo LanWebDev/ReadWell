@@ -18,7 +18,7 @@ export default function Home() {
       <div>
         <Hero />
         <TrendingFictionBooks />
-        <div className="my-20" />
+        <div className="my-16" />
         <TrendingNonFictionBooks />
         <FavoriteBook />
         <Feedback />

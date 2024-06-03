@@ -18,9 +18,13 @@ export default async function RootLayout({
     <SessionProvider session={session}>
       <CartProvider>
         <html lang="en">
-          <body className={`${inter.className} max-w-[100rem] mx-auto `}>
-            <Header />
-            <main>{children}</main>
+          <body
+            className={`${inter.className} flex justify-center items-center w-full`}
+          >
+            <div className="max-w-[100rem]">
+              <Header />
+              <main>{children}</main>
+            </div>
           </body>
         </html>
       </CartProvider>

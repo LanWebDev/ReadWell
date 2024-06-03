@@ -40,7 +40,7 @@ const Header = () => {
   return (
     <>
       <div
-        className={`fixed left-0 right-0 mx-auto max-w-[100rem] z-50 border-b border-gray-200 lg:bg-white/90  lg:backdrop-blur-sm ${
+        className={`fixed w-full max-w-[100rem] z-50 border-b border-gray-200 lg:bg-white/90  lg:backdrop-blur-sm ${
           openNavigation ? "bg-white" : "bg-white/90 backdrop-blur-sm "
         } `}
       >
@@ -97,7 +97,7 @@ const Header = () => {
             </div>
           </nav>
 
-          <div className="flex  ml-auto">
+          <div className="flex  ml-auto relative">
             {user ? (
               <UserButton />
             ) : (

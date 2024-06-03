@@ -5,7 +5,7 @@ import BookCard from "../BookCard";
 const TrendingFictionBooks = () => {
   return (
     <div>
-      <h2 className="text-3xl mt-6 ml-4 font-bold text-center">
+      <h2 className="text-3xl mt-6 ml-4 font-bold text-center ">
         Trending Fiction Books
       </h2>
       <div className="flex flex-col md:flex-row justify-evenly max-lg:items-center  md:max-lg:scale-[0.8] ">
