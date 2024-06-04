@@ -8,7 +8,10 @@ import { DEFUALT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 import { getUserByEmail } from "@/data/user";
 
-export const login = async (values: z.infer<typeof LoginSchema>) => {
+export const login = async (
+  values: z.infer<typeof LoginSchema>,
+  callbackUrl?: string | null
+) => {
   const validatedFields = LoginSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -27,7 +30,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: DEFUALT_LOGIN_REDIRECT,
+      redirectTo: callbackUrl || DEFUALT_LOGIN_REDIRECT,
     });
   } catch (error) {
     if (error instanceof AuthError) {

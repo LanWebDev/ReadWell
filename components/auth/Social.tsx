@@ -5,10 +5,15 @@ import Image from "next/image";
 import React from "react";
 import { Button } from "../ui/shadcn/button";
 
+import { useSearchParams } from "next/navigation";
+
 const Social = () => {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
+
   const onClick = (provider: "google" | "github") => {
     signIn(provider, {
-      callbackUrl: DEFUALT_LOGIN_REDIRECT,
+      callbackUrl: callbackUrl || DEFUALT_LOGIN_REDIRECT,
     });
   };
 

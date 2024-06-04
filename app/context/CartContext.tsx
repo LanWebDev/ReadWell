@@ -28,7 +28,6 @@ interface CartContextProps {
   removeFromCart: (id: number) => void;
   calculateTotalPrice: () => number;
   calculateTotalQuantity: () => number;
-  syncCartWithBackend: () => Promise<void>;
 }
 const CartContext = createContext<CartContextProps | undefined>(undefined);
 
@@ -39,10 +38,6 @@ interface CartProviderProps {
 const CartProvider = ({ children }: CartProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
   const [isMounted, setIsMounted] = useState(false);
-  const [isSyncing, setIsSyncing] = useState(false);
-  const [initialLoadCompleted, setInitialLoadCompleted] = useState(false);
-
-  const lastSyncedCartRef = useRef<CartItemProps[]>([]);
 
   const user = useCurrentUser();
 
@@ -64,95 +59,97 @@ const CartProvider = ({ children }: CartProviderProps) => {
     }
   }, [cartItems, isMounted, user]);
 
-  const syncCartWithBackend = useCallback(async () => {
-    if (user && !initialLoadCompleted) {
-      setIsSyncing(true);
-      try {
-        console.log("Syncing cart with backend:", cartItems);
-        const cartItemsData = cartItems.map((item) => ({
-          userId: user.id,
-          productId: item.id,
-          quantity: item.quantity,
-          price: item.price,
-          thumbnail: item.thumbnail,
-          title: item.title,
-          author: item.author,
-        }));
+  useEffect(() => {
+    const fetchAndSyncCart = async () => {
+      if (user) {
+        try {
+          console.log("Fetching user cart from backend");
 
-        await axios.post("/api/cart/sync-cart", {
-          cartItems: cartItemsData,
-        });
+          const response = await axios.get("/api/cart/user-cart");
+          const userCart = response.data;
 
-        lastSyncedCartRef.current = cartItems;
-        console.log("Cart synced with backend");
-      } catch (error) {
-        const err = error as Error;
-        console.error("Error syncing cart with backend:", err.message);
-      } finally {
-        setIsSyncing(false);
-        setInitialLoadCompleted;
-      }
-    }
-  }, [user]);
+          const transformedCartItems = userCart.map((item: any) => ({
+            id: item.productId,
+            thumbnail: item.thumbnail,
+            title: item.title,
+            author: item.author,
+            price: item.price,
+            quantity: item.quantity,
+          }));
 
-  const fetchUserCart = useCallback(async () => {
-    if (user && isMounted && !isSyncing) {
-      try {
-        const response = await axios.get("/api/cart/user-cart");
-        const userCart = response.data;
-
-        console.log("Fetching user cart from backend", userCart);
-        const transformedCartItems = userCart.map((item: any) => ({
-          id: item.productId,
-          thumbnail: item.thumbnail,
-          title: item.title,
-          author: item.author,
-          price: item.price,
-          quantity: item.quantity,
-        }));
-
-        // Merge user cart with local cart items
-        const mergedCartItems = [...cartItems];
-        transformedCartItems.forEach((userCartItem: any) => {
-          const existingItemIndex = mergedCartItems.findIndex(
-            (cartItem) => cartItem.id === userCartItem.id
+          // Merge user cart with local cart items without duplicating
+          const localCart = JSON.parse(
+            localStorage.getItem("cartItems") || "[]"
           );
-          if (existingItemIndex !== -1) {
-            mergedCartItems[existingItemIndex].quantity +=
-              userCartItem.quantity;
-          } else {
-            mergedCartItems.push(userCartItem);
-          }
-        });
+          const mergedCartItems = [...localCart];
 
-        setCartItems(mergedCartItems);
-        localStorage.removeItem("cartItems");
+          transformedCartItems.forEach((userCartItem: any) => {
+            const existingItemIndex = mergedCartItems.findIndex(
+              (cartItem) => cartItem.id === userCartItem.id
+            );
+            if (existingItemIndex !== -1) {
+              mergedCartItems[existingItemIndex].quantity +=
+                userCartItem.quantity;
+            } else {
+              mergedCartItems.push(userCartItem);
+            }
+          });
 
-        console.log("User cart fetched and merged:", mergedCartItems);
-      } catch (error) {
-        const err = error as Error;
-        console.error("Error fetching user cart:", err.message);
+          setCartItems(mergedCartItems);
+          localStorage.removeItem("cartItems");
+
+          console.log("User cart fetched and merged:", mergedCartItems);
+
+          await axios.post("/api/cart/sync-cart", {
+            cartItems: mergedCartItems.map((item) => ({
+              userId: user.id,
+              productId: item.id,
+              quantity: item.quantity,
+              price: item.price,
+              thumbnail: item.thumbnail,
+              title: item.title,
+              author: item.author,
+            })),
+          });
+
+          console.log("Cart synced with backend after merge");
+        } catch (error) {
+          console.error("Error fetching or syncing user cart:", error);
+        }
       }
-    }
+    };
+
+    fetchAndSyncCart();
   }, [user]);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     fetchUserCart();
-  //   }
-  // }, [user, fetchUserCart]);
+  // Sync cart to backend when cartItems change, but only if the user is logged in
+  useEffect(() => {
+    const syncCartWithBackend = async () => {
+      if (user) {
+        try {
+          console.log("Syncing cart with backend:", cartItems);
 
-  // useEffect(() => {
-  //   if (
-  //     user &&
-  //     isMounted &&
-  //     initialLoadCompleted &&
-  //     lastSyncedCartRef.current !== cartItems
-  //   ) {
-  //     const syncTimeout = setTimeout(syncCartWithBackend, 500); // throttle the sync
-  //     return () => clearTimeout(syncTimeout);
-  //   }
-  // }, [user, cartItems, isMounted, initialLoadCompleted, syncCartWithBackend]);
+          await axios.post("/api/cart/sync-cart", {
+            cartItems: cartItems.map((item) => ({
+              userId: user.id,
+              productId: item.id,
+              quantity: item.quantity,
+              price: item.price,
+              thumbnail: item.thumbnail,
+              title: item.title,
+              author: item.author,
+            })),
+          });
+
+          console.log("Cart synced with backend");
+        } catch (error) {
+          console.error("Error syncing cart with backend:", error);
+        }
+      }
+    };
+
+    syncCartWithBackend();
+  }, [cartItems, user]);
 
   const addToCart = (item: CartItemProps) => {
     setCartItems((prevItems) => {
@@ -227,7 +224,6 @@ const CartProvider = ({ children }: CartProviderProps) => {
         removeFromCart,
         calculateTotalPrice,
         calculateTotalQuantity,
-        syncCartWithBackend,
       }}
     >
       {children}

@@ -21,7 +21,7 @@ export default async function RootLayout({
           <body
             className={`${inter.className} flex justify-center items-center w-full`}
           >
-            <div className="max-w-[100rem]">
+            <div className="max-w-[100rem] w-full">
               <Header />
               <main>{children}</main>
             </div>

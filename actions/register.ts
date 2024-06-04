@@ -30,4 +30,6 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
       password: hashedPassword,
     },
   });
+
+  return { success: "User created!" };
 };
