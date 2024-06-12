@@ -34,7 +34,6 @@ export async function POST(req: Request) {
       { status: 201 }
     );
   } catch (error) {
-    console.log("pedrski error:", error);
     const err = error as Error;
     return NextResponse.json(
       {

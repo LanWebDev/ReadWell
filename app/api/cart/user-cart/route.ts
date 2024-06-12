@@ -15,6 +15,7 @@ export async function GET(req: Request) {
       where: { userId },
     });
 
+    console.log(cartItems);
     return NextResponse.json(cartItems, { status: 200 });
   } catch (error) {
     console.error("Error fetching user cart:", error);

@@ -11,6 +11,7 @@ import React, {
 
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import axios from "axios";
+import debounce from "lodash/debounce";
 
 interface CartItemProps {
   id: number;
@@ -38,20 +39,24 @@ interface CartProviderProps {
 const CartProvider = ({ children }: CartProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
   const [isMounted, setIsMounted] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
 
   const user = useCurrentUser();
 
+  // Load cart from local storage when the component mounts
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedCart = localStorage.getItem("cartItems");
       if (storedCart) {
-        setCartItems(JSON.parse(storedCart));
+        const parsedCart = JSON.parse(storedCart);
+        setCartItems(parsedCart);
+        console.log("Cart fetched from local storage:", parsedCart);
       }
       setIsMounted(true);
-      console.log("Cart fetched from local storage:", storedCart);
     }
   }, []);
 
+  // Save cart to local storage whenever cartItems change and user is not logged in
   useEffect(() => {
     if (isMounted && !user) {
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
@@ -59,16 +64,35 @@ const CartProvider = ({ children }: CartProviderProps) => {
     }
   }, [cartItems, isMounted, user]);
 
+  const mergeCarts = (
+    localCart: CartItemProps[],
+    userCart: CartItemProps[]
+  ): CartItemProps[] => {
+    const mergedCartItems = [...localCart];
+
+    userCart.forEach((userCartItem) => {
+      const existingItemIndex = mergedCartItems.findIndex(
+        (cartItem) => cartItem.id === userCartItem.id
+      );
+      if (existingItemIndex !== -1) {
+        mergedCartItems[existingItemIndex].quantity += userCartItem.quantity;
+      } else {
+        mergedCartItems.push(userCartItem);
+      }
+    });
+
+    return mergedCartItems;
+  };
+
   useEffect(() => {
-    const fetchAndSyncCart = async () => {
-      if (user) {
+    const fetchAndMergeUserCart = async () => {
+      if (user && !hasFetched) {
         try {
           console.log("Fetching user cart from backend");
-
           const response = await axios.get("/api/cart/user-cart");
           const userCart = response.data;
 
-          const transformedCartItems = userCart.map((item: any) => ({
+          const transformedUserCart = userCart.map((item: any) => ({
             id: item.productId,
             thumbnail: item.thumbnail,
             title: item.title,
@@ -77,60 +101,38 @@ const CartProvider = ({ children }: CartProviderProps) => {
             quantity: item.quantity,
           }));
 
-          // Merge user cart with local cart items without duplicating
           const localCart = JSON.parse(
             localStorage.getItem("cartItems") || "[]"
           );
-          const mergedCartItems = [...localCart];
 
-          transformedCartItems.forEach((userCartItem: any) => {
-            const existingItemIndex = mergedCartItems.findIndex(
-              (cartItem) => cartItem.id === userCartItem.id
-            );
-            if (existingItemIndex !== -1) {
-              mergedCartItems[existingItemIndex].quantity +=
-                userCartItem.quantity;
-            } else {
-              mergedCartItems.push(userCartItem);
-            }
-          });
+          console.log("Local cart items before merge:", localCart);
+          console.log("User cart items before merge:", transformedUserCart);
+
+          const mergedCartItems = mergeCarts(localCart, transformedUserCart);
+          console.log("Merged cart items:", mergedCartItems);
 
           setCartItems(mergedCartItems);
           localStorage.removeItem("cartItems");
 
-          console.log("User cart fetched and merged:", mergedCartItems);
-
-          await axios.post("/api/cart/sync-cart", {
-            cartItems: mergedCartItems.map((item) => ({
-              userId: user.id,
-              productId: item.id,
-              quantity: item.quantity,
-              price: item.price,
-              thumbnail: item.thumbnail,
-              title: item.title,
-              author: item.author,
-            })),
-          });
-
-          console.log("Cart synced with backend after merge");
+          await syncCartWithBackend(mergedCartItems);
+          setHasFetched(true);
         } catch (error) {
-          console.error("Error fetching or syncing user cart:", error);
+          console.error("Error fetching or merging user cart:", error);
         }
       }
     };
 
-    fetchAndSyncCart();
-  }, [user]);
+    fetchAndMergeUserCart();
+  }, [user, hasFetched]);
 
-  // Sync cart to backend when cartItems change, but only if the user is logged in
-  useEffect(() => {
-    const syncCartWithBackend = async () => {
+  const syncCartWithBackend = useCallback(
+    debounce(async (items) => {
       if (user) {
         try {
-          console.log("Syncing cart with backend:", cartItems);
+          console.log("Syncing cart with backend:", items);
 
           await axios.post("/api/cart/sync-cart", {
-            cartItems: cartItems.map((item) => ({
+            cartItems: items.map((item: CartItemProps) => ({
               userId: user.id,
               productId: item.id,
               quantity: item.quantity,
@@ -146,10 +148,15 @@ const CartProvider = ({ children }: CartProviderProps) => {
           console.error("Error syncing cart with backend:", error);
         }
       }
-    };
+    }, 500),
+    [user]
+  );
 
-    syncCartWithBackend();
-  }, [cartItems, user]);
+  useEffect(() => {
+    if (hasFetched) {
+      syncCartWithBackend(cartItems);
+    }
+  }, [cartItems, user, syncCartWithBackend, hasFetched]);
 
   const addToCart = (item: CartItemProps) => {
     setCartItems((prevItems) => {
