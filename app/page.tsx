@@ -7,11 +7,6 @@ import FavoriteBook from "@/components/ui/homepage/FavoriteBook";
 
 import Feedback from "@/components/ui/homepage/Feedback";
 
-export const metadata = {
-  title: "ReadWell",
-  description: "The only book store you'll ever need.",
-};
-
 export default function Home() {
   return (
     <>

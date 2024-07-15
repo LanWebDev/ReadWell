@@ -8,6 +8,11 @@ import { CartProvider } from "./context/CartContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
+export const metadata = {
+  title: "ReadWell",
+  description: "The only book store you'll ever need.",
+};
+
 export default async function RootLayout({
   children,
 }: Readonly<{

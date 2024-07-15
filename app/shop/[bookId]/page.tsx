@@ -1,9 +1,12 @@
-"use client";
-
 import BookDetails from "@/components/ui/shop/BookDetails";
-import React from "react";
 
-const page = ({ params }: { params: { bookId: string } }) => {
+type Props = {
+  params: {
+    bookId: string;
+  };
+};
+
+const page = ({ params }: Props) => {
   return <BookDetails id={params.bookId} />;
 };
 
