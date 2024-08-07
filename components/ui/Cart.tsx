@@ -118,9 +118,11 @@ const Cart = () => {
               </div>
               <SheetFooter>
                 <SheetClose asChild>
-                  <Button type="submit" className="w-full max-sm:w-[12rem]">
-                    Checkout
-                  </Button>
+                  <Link href={"/checkout"} className="w-full">
+                    <Button type="submit" className="w-full max-sm:w-[12rem]">
+                      Checkout
+                    </Button>
+                  </Link>
                 </SheetClose>
               </SheetFooter>
             </>
