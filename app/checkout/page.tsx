@@ -1,4 +1,8 @@
 "use client";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
 import React from "react";
 import { useCart } from "../context/CartContext";
 import Image from "next/image";
@@ -21,6 +25,7 @@ import {
 import Link from "next/link";
 
 const Checkout = () => {
+  const router = useRouter();
   const {
     cartItems,
 
@@ -28,7 +33,37 @@ const Checkout = () => {
     calculateTotalPrice,
     increaseQuantity,
     decreaseQuantity,
+    clearCart,
   } = useCart();
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      setIsProcessing(true);
+    } else {
+      setIsProcessing(false);
+    }
+  }, [cartItems]);
+
+  const handleCheckout = async () => {
+    setIsProcessing(true);
+
+    try {
+      await axios.post(`/api/orders/checkout`, {
+        items: cartItems,
+        totalPrice: calculateTotalPrice(),
+      });
+
+      clearCart();
+
+      router.push("profile/orders");
+    } catch (error) {
+      console.error("Checkout failed:", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   return (
     <>
       <div className="p-10">
@@ -143,7 +178,7 @@ const Checkout = () => {
           <div className="w-full h-full p-6 bg-gray-100 rounded-md">
             <div className="flex ">
               <h2 className="font-extrabold text-2xl">Payment Info.</h2>
-              <div className="bg-yellow-100 p-2 text-orange-700 font-bold ml-10 rounded-xl text-sm">
+              <div className="bg-orange-200 p-2 text-orange-700 font-bold ml-10 rounded-lg text-sm">
                 Fake form
               </div>
             </div>
@@ -273,13 +308,15 @@ const Checkout = () => {
                 </div>
               </form>
               <div className="mt-20">
-                <button
+                <Button
+                  onClick={handleCheckout}
+                  disabled={isProcessing}
                   type="submit"
                   form="form"
-                  className="w-full h-14 text-lg bg-blue-600 hover:bg-blue-600/80 text-white font-medium rounded-md"
+                  className="w-full h-14 text-lg bg-blue-600 hover:bg-blue-600/80  "
                 >
                   Check Out
-                </button>
+                </Button>
               </div>
             </div>
           </div>

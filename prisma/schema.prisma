@@ -25,7 +25,7 @@ model User {
   role          UserRole @default(USER)
   accounts      Account[]
   cart          CartItem[]
-
+ orders        Order[]
  
   @@map("users")
 }
@@ -64,4 +64,30 @@ model CartItem {
   user      User    @relation(fields: [userId], references: [id])
 
   @@unique([userId, productId])
+}
+
+model Order {
+  id        String    @id @default(cuid())
+  userId    String
+  items     OrderItem[]
+  totalPrice Float
+  user      User      @relation(fields: [userId], references: [id])
+  createdAt DateTime  @default(now())
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        Int      @id @default(autoincrement())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float
+  title     String
+  author    String
+  thumbnail String
+
+  order     Order    @relation(fields: [orderId], references: [id])
+
+  @@map("order_items")
 }

@@ -30,6 +30,7 @@ interface CartContextProps {
   removeFromCart: (id: number) => void;
   calculateTotalPrice: () => number;
   calculateTotalQuantity: () => number;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -203,6 +204,13 @@ const CartProvider = ({ children }: CartProviderProps) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("cartItems");
+    }
+  };
+
   const calculateTotalPrice = () => {
     return cartItems.reduce(
       (total, item) => total + item.price * item.quantity,
@@ -224,6 +232,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
         removeFromCart,
         calculateTotalPrice,
         calculateTotalQuantity,
+        clearCart,
       }}
     >
       {children}
