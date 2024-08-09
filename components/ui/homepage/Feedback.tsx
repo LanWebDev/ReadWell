@@ -1,5 +1,5 @@
 import React from "react";
-import { InfiniteMovingCards } from "../InfiniteMovingCards";
+import { InfiniteMovingCards } from "./InfiniteMovingCards";
 import { reviews } from "@/constants/constants";
 
 const Feedback = () => {

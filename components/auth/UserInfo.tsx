@@ -1,5 +1,9 @@
 "use client";
 import { ExtendedUser } from "@/next-auth";
+import { Button } from "../ui/shadcn/button";
+import Link from "next/link";
+import orderIcon from "@/assets/orders.svg";
+import Image from "next/image";
 
 interface UserInfoProps {
   user?: ExtendedUser;
@@ -36,6 +40,21 @@ export const UserInfo = ({ user, label }: UserInfoProps) => {
               {user?.role}
             </p>
           </div>
+        </div>
+        <div className="flex justify-center mt-6 mb-2">
+          <Button className="bg-green-400 hover:bg-green-400/70 w-[200px] text-base text-black font-bold">
+            <div className="flex w-full justify-center space-x-3">
+              <Image
+                src={orderIcon}
+                alt={"order icon"}
+                height={20}
+                className=""
+              />
+              <Link href={"/profile/orders"} className="">
+                My Orders
+              </Link>
+            </div>
+          </Button>
         </div>
       </div>
     </div>

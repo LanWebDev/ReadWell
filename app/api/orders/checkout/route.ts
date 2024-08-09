@@ -10,7 +10,6 @@ export async function POST(req: NextRequest) {
     const userId = session?.user.id;
     const { items, totalPrice } = await req.json();
 
-    console.log(userId, items, totalPrice);
     if (!userId || !items || !totalPrice) {
       return NextResponse.json(
         { error: "Missing required fields" },
