@@ -25,17 +25,18 @@ const CheckoutCart = ({
     <div className="pr-20">
       <h2 className="mb-10 mt-6 font-extrabold text-2xl">Shopping cart.</h2>
       <div>
-        <div className="flex ">
-          <p className="pr-[400px] pl-4">Product</p>
-          <p className="pr-[200px]">Quantity</p>
-          <p>Total Price</p>
+        <div className="flex  ">
+          <p className="w-[40%] flex justify-left pl-4">Product</p>
+          <p className="w-[30%] flex justify-center">Quantity</p>
+          <p className="w-[20%] flex justify-center">Total Price</p>
+          <p className="w-[10%]"></p>
         </div>
         <div className="border-b my-2 border-gray-100 border" />
         <ScrollArea className="h-[350px] w-[1000px]">
           <ul className="my-4">
             {cartItems.map((item: any) => (
               <li key={item.id} className="flex my-4 ">
-                <div className="pl-4 flex w-[45%]">
+                <div className="pl-4 flex w-[40%] items-center">
                   <Image
                     className="min-w-[4rem] min-h-[6rem] max-w-[4rem] max-h-[6rem] shadow-lg border border-stone-300"
                     src={item.thumbnail}
@@ -43,15 +44,13 @@ const CheckoutCart = ({
                     width={80}
                     height={80}
                   />
-                  <div className="mx-2 max-sm:max-w-[150px] max-w-[220px]">
+                  <div className="mx-2 max-sm:max-w-[150px] max-w-[300px]">
                     <div className=" font-bold">{item.title}</div>
 
-                    <div className="truncate text-sm text-stone-600">
-                      {item.author}
-                    </div>
+                    <div className="text-sm text-stone-600">{item.author}</div>
                   </div>
                 </div>
-                <div className="w-[30%] pl-6 ">
+                <div className="w-[30%] justify-center items-center flex">
                   <div className="bg-gray-100 max-w-max p-2 rounded-sm">
                     <button
                       onClick={() => increaseQuantity(item.id)}
@@ -69,10 +68,10 @@ const CheckoutCart = ({
                   </div>
                 </div>
 
-                <div className=" w-[20%]">
+                <div className=" w-[20%] justify-center items-center flex">
                   €{(item.price * item.quantity).toFixed(2)}
                 </div>
-                <div className="">
+                <div className="items-center flex justify-center w-[10%]">
                   <button
                     onClick={() => removeFromCart(item.id)}
                     className="text-destructive opacity-70 hover:opacity-50"

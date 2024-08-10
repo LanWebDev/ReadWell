@@ -24,9 +24,6 @@ const PaymentInfo = ({ handleCheckout, isProcessing }: PaymentInfoProps) => {
     <div className="w-full h-full p-6 bg-gray-100 rounded-md">
       <div className="flex ">
         <h2 className="font-extrabold text-2xl">Payment Info.</h2>
-        <div className="bg-orange-200 p-2 text-orange-700 font-bold ml-10 rounded-lg text-sm">
-          Fake form
-        </div>
       </div>
 
       <div className="py-10">

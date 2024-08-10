@@ -49,7 +49,7 @@ const Checkout = () => {
 
       clearCart();
 
-      router.push("profile/orders");
+      router.push("checkout/order-complete");
     } catch (error) {
       console.error("Checkout failed:", error);
     } finally {
@@ -60,7 +60,7 @@ const Checkout = () => {
   return (
     <>
       <div className="p-10">
-        <div className="flex pt-[7rem] md:pt-[7.5rem]">
+        <div className="flex pt-[7rem] md:pt-[7.5rem] max-xl:flex-col">
           <CheckoutCart
             cartItems={cartItems}
             removeFromCart={removeFromCart}

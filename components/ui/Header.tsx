@@ -40,12 +40,12 @@ const Header = () => {
   return (
     <>
       <div
-        className={`fixed w-full max-w-[100rem] z-50 border-b border-gray-200 lg:bg-white/90  lg:backdrop-blur-sm ${
+        className={` fixed w-full max-w-[100rem] z-50 border-b border-gray-200 lg:bg-white/90  lg:backdrop-blur-sm ${
           openNavigation ? "bg-white" : "bg-white/90 backdrop-blur-sm "
         } `}
       >
-        <div className="flex items-center  px-5 lg:px-7.5 xl:px-10 py-4 ">
-          <Link className="block  mr-4 xl:mr-8 hover:opacity-90 " href={"/"}>
+        <div className="flex items-center  px-5 lg:px-7.5 xl:px-10  py-4">
+          <Link className="block   hover:opacity-90 " href={"/"}>
             <Image
               src={Logo}
               alt="ReadWell logo"
@@ -59,7 +59,7 @@ const Header = () => {
               openNavigation ? "flex backdrop-blur-sm" : "hidden"
             } fixed top-[5rem] left-0 right-0 bottom-0 bg-white/80  lg:static lg:flex lg:ml-auto  lg:bg-transparent `}
           >
-            <div className=" relative z-2 flex flex-col items-center justify-center m-auto lg:flex-row">
+            <div className=" relative z-2 flex flex-col items-center justify-center m-auto lg:flex-row lg:pr-[7rem]">
               {navigation.map((item) => (
                 <Link
                   href={item.url}

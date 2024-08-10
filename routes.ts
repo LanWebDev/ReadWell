@@ -12,7 +12,12 @@
  * @type {string[]}
  */
 
-export const privateRoutes = ["/profile", "/checkout", "/profile/orders"];
+export const privateRoutes = [
+  "/profile",
+  "/checkout",
+  "/checkout/order-complete",
+  "/profile/orders",
+];
 
 /**
  * An array of routes that are used for authentication
