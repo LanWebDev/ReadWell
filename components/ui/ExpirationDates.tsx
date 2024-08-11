@@ -33,7 +33,7 @@ const ExpirationDates = () => {
           </SelectContent>
         </Select>
         <Select required>
-          <SelectTrigger className="w-[120px]">
+          <SelectTrigger className="w-[100px]">
             <SelectValue placeholder="Year" />
           </SelectTrigger>
           <SelectContent>

@@ -16,7 +16,7 @@ interface PaymentInfoProps {
 
 const PaymentInfo = ({ handleCheckout, isProcessing }: PaymentInfoProps) => {
   return (
-    <div className="w-full h-full p-6 bg-gray-100 rounded-md min-w-[370px] max-w-[600px] ">
+    <div className="w-full h-full p-6 bg-gray-100 rounded-md min-w-[330px] max-w-[600px] ">
       <div className="flex ">
         <h2 className="font-extrabold text-2xl">Payment Info.</h2>
       </div>
@@ -67,7 +67,7 @@ const PaymentInfo = ({ handleCheckout, isProcessing }: PaymentInfoProps) => {
             </div>
           </div>
           <CardNumberInput />
-          <div className="mt-10 flex space-x-10">
+          <div className="mt-10 flex space-x-6">
             <ExpirationDates />
             <CvvInput />
           </div>

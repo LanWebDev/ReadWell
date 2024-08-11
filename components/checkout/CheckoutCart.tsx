@@ -35,7 +35,7 @@ const CheckoutCart = ({
         </Button>
         <h2 className="pl-4 font-extrabold text-2xl">Shopping cart.</h2>
       </div>
-      <div className="2xl:w-[1000px] xl:w-[700px] lg:w-[1000px] md:w-[800px]">
+      <div className="2xl:w-[1000px] xl:w-[700px] lg:w-[1000px] md:w-[800px] ">
         <div className="flex max-md:hidden">
           <p className="w-[40%] flex justify-left pl-4">Product</p>
           <p className="w-[30%] flex justify-center">Quantity</p>
@@ -43,7 +43,7 @@ const CheckoutCart = ({
           <p className="w-[10%]"></p>
         </div>
         <div className="border-b my-2 border-gray-100 border" />
-        <ScrollArea className="h-[370px] max-md:h-[400px] ">
+        <ScrollArea className="h-[370px]  ">
           <ul className="my-4">
             {cartItems.map((item: any) => (
               <li
