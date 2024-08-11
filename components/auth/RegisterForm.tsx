@@ -9,6 +9,7 @@ import { Button } from "../ui/shadcn/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { RegisterSchema } from "@/schemas";
+import { useRouter } from "next/navigation";
 
 import {
   Form,
@@ -27,6 +28,8 @@ const RegisterForm = () => {
   const [success, setSuccess] = useState<string | undefined>("");
 
   const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -48,6 +51,8 @@ const RegisterForm = () => {
         setSuccess(data.success);
       });
     });
+
+    router.push("/auth/signin");
   };
   return (
     <Form {...form}>

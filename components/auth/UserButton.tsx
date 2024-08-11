@@ -49,7 +49,7 @@ export const UserButton = () => {
         <LogoutButton>
           <DropdownMenuItem className="cursor-pointer">
             <LogOut className="w-4 mr-2" />
-            Logout
+            Sign out
           </DropdownMenuItem>
         </LogoutButton>
       </DropdownMenuContent>

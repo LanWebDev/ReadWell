@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { LoginSchema } from "@/schemas";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import {
   Form,
@@ -31,6 +32,8 @@ const LoginForm = () => {
       ? "Email already in use with different provider!"
       : "";
 
+  const router = useRouter();
+
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
@@ -45,14 +48,21 @@ const LoginForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    setError("");
-    setSuccess("");
+    try {
+      setError("");
+      setSuccess("");
 
-    startTransition(() => {
-      login(values, callbackUrl).then((data) => {
-        setError(data?.error);
+      startTransition(() => {
+        login(values, callbackUrl).then((data) => {
+          setError(data?.error);
+        });
       });
-    });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      router.push("/profile");
+      router.refresh();
+    }
   };
   return (
     <Form {...form}>
