@@ -60,7 +60,7 @@ const Checkout = () => {
   return (
     <>
       <div className="p-10">
-        <div className="flex pt-[7rem] md:pt-[7.5rem] max-xl:flex-col">
+        <div className="flex pt-[7rem] md:pt-[7.5rem] max-xl:flex-col max-xl:items-center max-xl:space-y-6">
           <CheckoutCart
             cartItems={cartItems}
             removeFromCart={removeFromCart}

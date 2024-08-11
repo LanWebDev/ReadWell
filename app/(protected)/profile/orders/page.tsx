@@ -22,13 +22,18 @@ interface ordersProps {
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchUserOrders = async () => {
     try {
+      setLoading(true);
       const response = await axios.get("../api/orders/user-orders");
+
       setOrders(response.data.reverse());
     } catch (error) {
       console.error("Error fetching user orders:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,38 +60,45 @@ const OrdersPage = () => {
             </h2>
           </div>
 
-          <div className="flex text-xs px-4 font-bold text-black/80 mb-2 max-md:hidden">
-            <div className="w-[25%] justify-left flex">ORDER ID</div>
-            <div className="w-[25%] justify-center flex">COST</div>
-            <div className="w-[25%] justify-center flex">DATE</div>
-            <div></div>
-          </div>
-          {orders.length === 0 ? (
+          {loading ? (
             <div className="pt-[3rem] flex flex-col justify-center items-center">
               <p className=" text-xl text-black/70">Loading orders...</p>
               <Loading className="w-[4rem]" />
             </div>
+          ) : orders.length === 0 ? (
+            <div className="pt-[3rem] flex flex-col justify-center items-center">
+              <p className="text-xl text-black/70">No orders found.</p>
+            </div>
           ) : (
-            <ScrollArea className="md:h-[310px] ">
-              {orders.map((order: ordersProps) => (
-                <div key={order.id} className="space-y-4">
-                  <div className="flex max-md:flex-col items-center max-md:space-y-2 border p-4 m-1 shadow-sm">
-                    <div className="text-xs font-medium md:w-[25%] justify-left flex ">
-                      #{order.id}
-                    </div>
-                    <div className="text md:w-[25%] justify-center flex">
-                      ${order.totalPrice.toFixed(2)}
-                    </div>
-                    <div className=" md:w-[25%] justify-center flex">
-                      {new Date(order.createdAt).toLocaleDateString("en-UK")}
-                    </div>
-                    <div className="md:w-[25%] justify-center flex">
-                      <ViewOrders order={order} />
+            <>
+              <div className="flex text-xs px-4 font-bold text-black/80 mb-2 max-md:hidden">
+                <div className="w-[25%] justify-left flex">ORDER ID</div>
+                <div className="w-[25%] justify-center flex">COST</div>
+                <div className="w-[25%] justify-center flex">DATE</div>
+                <div></div>
+              </div>
+
+              <ScrollArea className="md:h-[310px] ">
+                {orders.map((order: ordersProps) => (
+                  <div key={order.id} className="space-y-4">
+                    <div className="flex max-md:flex-col items-center max-md:space-y-2 border p-4 m-1 shadow-sm">
+                      <div className="text-xs font-medium md:w-[25%] justify-left flex ">
+                        #{order.id}
+                      </div>
+                      <div className="text md:w-[25%] justify-center flex">
+                        ${order.totalPrice.toFixed(2)}
+                      </div>
+                      <div className=" md:w-[25%] justify-center flex">
+                        {new Date(order.createdAt).toLocaleDateString("en-UK")}
+                      </div>
+                      <div className="md:w-[25%] justify-center flex">
+                        <ViewOrders order={order} />
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </ScrollArea>
+                ))}
+              </ScrollArea>
+            </>
           )}
         </div>
       </div>

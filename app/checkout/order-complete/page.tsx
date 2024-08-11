@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import checkMark from "@/assets/checkmark.svg";
 import Image from "next/image";
-
+import ReadWellLogo from "@/assets/ReadWell.png";
 const page = () => {
   return (
     <>
@@ -23,6 +23,12 @@ const page = () => {
         <Button className="bg-green-500 hover:bg-green-500/70 md:p-6 md:text-base">
           <Link href={"/profile/orders"}>View your orders</Link>
         </Button>
+        <Image
+          src={ReadWellLogo}
+          alt="readwell logo"
+          height={80}
+          className="mt-10"
+        />
       </div>
     </>
   );
