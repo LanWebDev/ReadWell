@@ -23,7 +23,7 @@ const CheckoutCart = ({
 }: CheckoutCartProps) => {
   return (
     <div className="xl:pr-20">
-      <div className="flex max-md:flex-col justify-between items-center mt-6 mb-10">
+      <div className="flex max-md:flex-col justify-between items-center md:mt-6 md:mb-10 mb-4">
         <Button
           variant={"ghost"}
           className="hover:opacity-70 hover:bg-transparent xl:hidden"
@@ -68,7 +68,7 @@ const CheckoutCart = ({
                     </div>
                   </div>
                 </div>
-                <div className=" max-md:space-x-4 max-md:py-6 max-md:pl-4 flex md:w-[60%]">
+                <div className=" max-md:space-x-4 max-md:pt-6 max-md:pl-4 flex md:w-[60%]">
                   <div className=" md:w-[50%] justify-center items-center flex ">
                     <div className="bg-gray-100 max-w-max   p-2  text-sm rounded-sm">
                       <button
