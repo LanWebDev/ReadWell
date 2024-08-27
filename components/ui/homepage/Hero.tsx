@@ -14,8 +14,8 @@ const Hero = () => {
         </p>
 
         <p className="pt-4 md:pt-10">
-          Explore Endless Worlds of Knowledge! Shop Now for Your Next Favorite
-          Read.
+          Explore endless worlds of knowledge! Shop now for your next favorite
+          read.
         </p>
         <Link href={"/shop"}>
           <Button className="bg-blue-600 w-[12rem] hover:bg-blue-600/80 scale-125 mt-6 ml-6">
